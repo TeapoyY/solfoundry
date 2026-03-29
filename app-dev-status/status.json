@@ -1,0 +1,60 @@
+{
+  "last_updated": "2026-03-29T21:25:00+08:00",
+  "world_predict": {
+    "version": "0.8.5",
+    "backend_url": "http://localhost:8001",
+    "frontend_url": "http://localhost:3004",
+    "healthy": true,
+    "status": "healthy",
+    "features": [
+      "market_overview", "top_movers", "stock_search", "technical_indicators",
+      "stock_screener", "prediction", "ai_analysis", "watchlist",
+      "price_alerts", "holdings_pnl", "portfolio_backtest",
+      "prediction_history", "prediction_accuracy", "websocket"
+    ]
+  },
+  "ai_news": {
+    "version": "0.7.0",
+    "backend_url": "http://localhost:8013",
+    "frontend_url": "http://localhost:3002",
+    "healthy": true,
+    "status": "healthy",
+    "features": [
+      "news_aggregation", "categories", "search", "trending_topics",
+      "ai_summary", "user_stats", "feedback", "news_dedup",
+      "user_auth", "personalized_recommendation"
+    ]
+  },
+  "recent_fixes": [
+    {
+      "date": "2026-03-29",
+      "issue": "WorldPredict frontend proxy was pointing to wrong port (8011 instead of 8001)",
+      "severity": "critical",
+      "files": ["world-predict/frontend/vite.config.ts"]
+    },
+    {
+      "date": "2026-03-29",
+      "issue": "AI News frontend API base URL hardcoded to non-existent port 8002",
+      "severity": "critical",
+      "files": ["ai-news/frontend/src/services/api.ts"]
+    },
+    {
+      "date": "2026-03-29",
+      "issue": "AI News backend API version was 0.6.0 instead of 0.7.0",
+      "severity": "low",
+      "files": ["ai-news/backend/app/api/routes.py"]
+    },
+    {
+      "date": "2026-03-29",
+      "issue": "WorldPredict backend routes.py version was 0.8.4 instead of 0.8.5",
+      "severity": "low",
+      "files": ["world-predict/backend/app/api/routes.py"]
+    },
+    {
+      "date": "2026-03-29",
+      "issue": "AI News backend endpoint docs listed non-existent /news/trending",
+      "severity": "low",
+      "files": ["ai-news/backend/app/api/routes.py"]
+    }
+  ]
+}
