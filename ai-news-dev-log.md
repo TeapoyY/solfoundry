@@ -1,5 +1,144 @@
 # AI News + WorldPredict 开发日志
 
+## 2026-03-30 14:05 开发更新 ✅
+
+### WorldPredict v0.8.13: Dashboard数据修复 + 文件编码修复
+
+#### 1. Dashboard数据修复
+- **问题**: `/api/v1/market/dashboard` 返回空数组（12个股票全部失败）
+- **根因**: 
+  - 嵌套`asyncio.gather`模式问题
+  - 新闻API单次请求需4+秒，但超时仅设2秒
+- **修复** (routes.py dashboard):
+  - 改用扁平`asyncio.gather(*all_tasks, return_exceptions=True)`
+  - 超时时间调整：新闻2s→8s，技术指标3s→8s，行情2s→5s
+- **结果**: Dashboard现在返回 3US + 4CN + 4HK = 11只股票（偶尔1只US股票超时）
+
+#### 2. main.py文件编码修复
+- **问题**: main.py被意外保存为UTF-16 LE编码，导致Python启动失败
+- **症状**: `SyntaxError: invalid character '��' (U+FF0C)`
+- **修复**: 将main.py从UTF-16 LE转换为UTF-8编码
+
+#### 3. 版本更新
+- WorldPredict: v0.8.12 → v0.8.13
+- 提交: 5d085b3 (fix encoding), c94140e (frontend version), 8deb6ba (dashboard fix)
+- GitHub: 已推送
+
+### AI News v0.7.2
+- Blog功能已完全实现（路由、服务、模型）
+- 后端重启后blog路由生效（之前因代码更新但未重启导致路由未注册）
+- API测试: `/api/v1/blog/posts` 返回空列表（正常工作）
+
+## 2026-03-30 14:23 开发更新 ✅
+
+### WorldPredict v0.8.13: Dashboard Gather修复 + UTF-16编码修复
+
+#### 1. Dashboard 嵌套Gather问题修复
+- **问题**: 原代码使用嵌套 `asyncio.gather` 调用，一个市场组失败可能影响其他组
+- **修复**: 改用扁平 `asyncio.gather(*all_tasks, return_exceptions=True)`
+- **效果**: US/CN/HK三组完全独立，一组失败不影响其他组
+
+#### 2. main.py UTF-16编码修复
+- **问题**: main.py 被意外保存为 UTF-16 LE编码 (带BOM)，导致 Python 启动失败
+- **症状**: `invalid character` 和 `null bytes` 错误
+- **修复**: 转换为 UTF-8 编码
+
+#### 3. Dashboard超时调整
+- 新闻获取: 2s → 8s (适应慢速API)
+- 实时行情: 2s → 5s (适应网络波动)
+- 技术指标: 3s → 8s
+
+#### 4. GitHub 状态
+- WorldPredict: 5d085b3 ✅ (UTF-16 fix)
+- AI News: c1de3cb ✅ (.gitignore + package-lock.json)
+- WorldPredict README: v0.8.12 → v0.8.13 ✅
+
+### 服务状态 (2026-03-30 14:22)
+| Service | Port | Version | Status |
+|---------|------|---------|--------|
+| AI News Backend | 8002 | v0.7.2 | ✅ Healthy (blog routes) |
+| AI News Backend | 8000 | v0.7.2 | ✅ Healthy (old) |
+| WorldPredict Backend | 8011 | v0.8.13 | ✅ Healthy |
+| AI News Frontend | 3002 | - | ✅ Running |
+| WorldPredict Frontend | 3004 | - | ✅ Running |
+
+**Dashboard 测试结果 (60s timeout):**
+- US stocks: 3/4 返回 (MSFT失败，返回neutral)
+- CN stocks: 4/4 返回 ✅
+- HK stocks: 3/4 prices null (0700, 9988, 3690 - 腾讯财经API问题)
+
+## 2026-03-30 13:40 开发更新 ✅
+
+### WorldPredict v0.8.12: Dashboard超时修复 + HK指数
+
+#### 1. Dashboard Endpoint超时修复
+- **问题**: `/api/v1/market/dashboard` 超时无响应 (10s+)
+- **根因**: fetch_us_stock/fetch_cn_stock/fetch_hk_stock 内各操作无独立超时
+- **修复** (routes.py):
+  - `fetch_us_stock`: 新闻2s超时, 技术指标3s超时, 行情2s超时
+  - `fetch_cn_stock`: 同上
+  - `fetch_hk_stock`: 同上
+  - 所有操作包裹在 `asyncio.wait_for(..., timeout=X)` 中
+
+#### 2. Market Overview添加HK指数
+- **问题**: 市场概览只显示A股6个指数，缺少港股
+- **修复** (routes.py indices列表):
+  - 添加 `("hkHSI", "恒生指数")`
+  - 添加 `("hkHSCEI", "恒生国企指数")`
+- **修复** (market_data.py):
+  - HK index symbol处理: 区分HK股票(HK0700)和HK指数(HKHSI/HKHSCEI)
+  - Volume字段修复: `int(float(parts[6]))` 替代 `int(parts[6])` (HK指数volume为浮点数)
+
+#### 3. Version bump: 0.8.11 → 0.8.12
+- main.py: 3处 version="0.8.12"
+- routes.py root: version="0.8.12"
+
+## 2026-03-30 13:05 开发更新 ✅
+
+### WorldPredict v0.8.11: 港股全面支持 (第二轮修复)
+
+#### HK股票数据层全面修复
+- **Bug修复** (news_fetcher.py): 
+  - `fetch_stock_news` 原来对4位数字HK股票使用Eastmoney（不支持），改为使用Yahoo Finance + ".HK"后缀
+  - 添加腾讯(0700)和小米(1810)的mock新闻模板
+
+- **Bug修复** (market_data.py):
+  - `get_realtime_quote` 原来对HK股票代码处理有误 (`symbol[-5:]`截断问题)
+  - 修复: 正确处理 "HK0700", "hk0700", "0700" 三种输入格式，统一转换为 "hk00700" (5位数字补零)
+
+- **Bug修复** (routes.py fetch_hk_stock):
+  - 修复symbol双重前缀问题: "hk0700" → "hkhk0700"
+  - 修复: 传入clean_symbol (去掉HK前缀) 给 get_cached_news
+
+- **改进** (technical_indicators.py):
+  - `get_historical_prices` 支持HK股票: 4位数字代码自动转换为 Yahoo Finance 格式 "0700.HK"
+  - 支持RSI/MACD/布林带等技术指标计算
+
+- **GitHub commit**: 98db678 ✅ (routes.py + market_data.py + news_fetcher.py + technical_indicators.py)
+- **GitHub push**: ✅
+
+### WorldPredict v0.8.11: 港股覆盖 + 版本修复
+
+#### 1. 新功能: 港股市场覆盖
+- **问题**: dashboard 只覆盖美股和A股，缺少港股
+- **修复**: 在 `/market/dashboard` 添加港股预测
+  - 新增热门港股: 腾讯(0700)、阿里(9988)、美团(3690)、小米(1810)、京东(9618)、比亚迪股份(1211)
+  - 添加 `fetch_hk_stock` 异步函数，与美股/A股逻辑一致
+  - Dashboard 响应新增 `hk_stocks` 数组
+  - 使用腾讯财经API获取港股实时数据（hk00700等格式）
+
+#### 2. 版本修复: main.py 版本字符串更新
+- **问题**: v0.8.10 代码已部署但 main.py 仍显示 0.8.9
+- **修复**: 更新 main.py 中所有版本字符串 (root, health, system_stats)
+
+### 服务状态 ✅
+| Service | Port | Version | Status |
+|---------|------|---------|--------|
+| AI News Backend | 8002 | v0.7.2 | ✅ Healthy |
+| WorldPredict Backend | 8011 | v0.8.11 | ✅ Healthy |
+| AI News Frontend | 3002 | - | ✅ Running |
+| WorldPredict Frontend | 3004 | - | ✅ Running |
+
 ## 2026-03-30 12:28 开发更新 ✅
 
 ### WorldPredict v0.8.10: 两项关键改进
@@ -177,7 +316,8 @@
 - [x] API spot checks: /news OK, /market/overview OK ✅
 
 ## 版本历史
-- v0.8.8 (2026-03-30) - WorldPredict 技术指标整合 + 版本一致性修复
+- v0.8.11 (2026-03-30) - WorldPredict 港股市场覆盖 (腾讯/阿里/美团/小米/京东/比亚迪)
+- v0.8.10 (2026-03-30) - WorldPredict 技术指标修复 + 预测阈值加宽
 - v0.8.7 (2026-03-29) - WorldPredict KDJ/ATR 技术指标
 - v0.8.6 (2026-03-29) - WorldPredict 新闻获取超时优化
 - v0.8.5 (2026-03-29) - WorldPredict market/dashboard 优化
