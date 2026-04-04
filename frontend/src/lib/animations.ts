@@ -39,3 +39,18 @@ export const fadeIn: Variants = {
     transition: { duration: 0.4, ease: 'easeOut' },
   },
 };
+
+export const slideInRight: Variants = {
+  initial: { opacity: 0, x: 30 },
+  animate: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.35, ease: 'easeOut' },
+  },
+};
+
+export const buttonHover: Variants = {
+  rest: { scale: 1 },
+  hover: { scale: 1.04, transition: { duration: 0.15, ease: 'easeOut' } },
+  tap: { scale: 0.97, transition: { duration: 0.1, ease: 'easeIn' } },
+};
