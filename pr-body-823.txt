@@ -1,0 +1,26 @@
+## Bounty T1: Add Search Bar to Bounties Page
+
+**Reward:** 100,000 $FNDRY | **Tier:** T1 (Open Race) | **Domain:** Frontend
+
+### What was implemented
+
+Added a fully functional search bar to the `/bounties` page (`BountyGrid` component) that filters bounties in real-time.
+
+#### Changes in `BountyGrid.tsx`:
+- **Search input** with magnifying glass icon (Lucide `Search` component)
+- **300ms debounce** — avoids filtering on every keystroke
+- **Filters across**: bounty title, description, and skills array
+- **Clear button** (X icon) resets the search instantly
+- **Expanding input** — grows from 192px to 256px on focus for better UX
+- **Works alongside existing filters** — status dropdown and skill filter pills unaffected
+- **Empty state messaging** — shows "No bounties match your search" when nothing found
+
+### Files changed
+- `frontend/src/components/bounty/BountyGrid.tsx` — search input + debounced filtering logic
+- `frontend/src/lib/animations.ts` — stagger animation variants for grid
+- `frontend/src/lib/utils.ts` — utility functions (formatCurrency, LANG_COLORS)
+
+### Acceptance Criteria
+- [x] Search bar visible on /bounties page
+- [x] Typing filters bounties in real-time  
+- [x] Works alongside existing filters

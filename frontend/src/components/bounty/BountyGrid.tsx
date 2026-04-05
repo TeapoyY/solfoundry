@@ -58,7 +58,7 @@ export function BountyGrid() {
                 placeholder="Search bounties..."
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                className="pl-9 pr-8 py-1.5 bg-forge-800 border border-border rounded-lg text-sm text-text-primary placeholder:text-text-muted focus:border-emerald outline-none transition-colors duration-150 w-48 focus:w-64"
+                className="pl-9 pr-8 py-1.5 bg-forge-800 border border-border rounded-lg text-sm text-text-primary placeholder:text-text-muted focus:border-emerald outline-none transition-colors duration-150 w-full sm:w-48 sm:focus:w-64"
               />
               {searchInput && (
                 <button

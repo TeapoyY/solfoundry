@@ -1,0 +1,54 @@
+## Bounty T2: Advanced Bounty Search with Filters
+
+**Reward:** 450K $FNDRY | **Tier:** T2 | **Domain:** Frontend
+
+### Summary
+
+Implemented comprehensive advanced search and filtering capabilities for the /bounties page, beyond the basic search bar already in place.
+
+### What was added
+
+#### 1. Multi-select Tier Filter
+- Dropdown with checkboxes for T1 / T2 / T3
+- Color-coded tier badges (green/blue/purple)
+- Multiple tiers can be selected simultaneously
+
+#### 2. Multi-select Domain/Category Filter
+- Dynamically populates from actual category data in the bounty set
+- Falls back to common categories (DeFi, NFT, Gaming, Infrastructure, Tooling, Security, DAO, Cross-chain)
+- Supports filtering by multiple domains at once
+
+#### 3. Reward Range Filter with Presets
+- One-click preset buttons: Any | < 50K | 50K-100K | 100K-250K | 250K+
+- Filters bounties by reward amount client-side
+
+#### 4. Collapsible Advanced Filters Panel
+- Toggled via a "Filters" button with active filter badge count
+- Animated expand/collapse with Framer Motion AnimatePresence
+
+#### 5. Saved Filter Presets
+- Save current filter combination with a custom name
+- Persisted to localStorage across sessions
+- Quick-apply any saved preset; delete with hover-revealed button
+
+#### 6. Active Filter Summary Bar
+- Shows live "X of Y bounties" count when advanced filters are active
+- Lists active tier, domain, and reward filters
+- One-click "Clear all" to reset
+
+### Acceptance Criteria
+
+- Multi-select filters for language, tier, domain - DONE
+- Reward range slider with price presets - DONE
+- Search persistence and saved filter sets - DONE (localStorage)
+
+### Technical details
+
+- All new filters are client-side (no backend changes required)
+- useMemo ensures efficient filter computation
+- Framer Motion AnimatePresence for smooth panel animation
+- localStorage for preset persistence with graceful error fallback
+- Zero TypeScript errors
+- Build passes: tsc && vite build
+
+Closes #842

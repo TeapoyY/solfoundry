@@ -1,0 +1,30 @@
+## Bounty T1: Bounty Countdown Timer Component
+
+**Reward:** 100,000 $FNDRY | **Tier:** T1 (Open Race) | **Domain:** Frontend
+
+### What was implemented
+
+#### New component: `BountyCountdown.tsx`
+A real-time countdown timer component with:
+- **Live updates** — ticks every second via `setInterval`
+- **Urgency states** — `normal` (>24h), `warning` (<24h, yellow), `urgent` (<1h, red)
+- **"Expired" state** — shown when deadline passes
+- **Two display modes:**
+  - `compact` prop: "3d 5h" format for bounty cards
+  - Full mode: "00d : 05h : 30m : 15s" for detail pages
+
+#### Integrated into:
+- `BountyCard.tsx` — compact countdown in card footer
+- `BountyDetail.tsx` — full countdown in sidebar deadline row
+
+### Acceptance Criteria
+- [x] Timer displays on bounty cards and detail page
+- [x] Updates without page refresh
+- [x] Visual urgency indicators (color changes at 24h and 1h)
+
+### Related: also implements #823 Search Bar
+This PR also includes the **Search Bar** feature (bounty #823):
+- Debounced 300ms search input in `BountyGrid.tsx`
+- Filters bounties by title, description, and skills
+- Clear (X) button to reset
+- Works alongside existing status and skill filters

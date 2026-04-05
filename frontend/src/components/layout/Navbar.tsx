@@ -190,7 +190,11 @@ export function Navbar() {
                   key={link.to}
                   to={link.to}
                   onClick={() => setMenuOpen(false)}
-                  className="px-4 py-2.5 rounded-lg text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-forge-850 transition-colors duration-150"
+                  className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150 ${
+                    isActive(link.to)
+                      ? 'text-text-primary bg-forge-850'
+                      : 'text-text-secondary hover:text-text-primary hover:bg-forge-850'
+                  }`}
                 >
                   {link.label}
                 </Link>

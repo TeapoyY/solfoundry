@@ -1,0 +1,1 @@
+{ "query": "{ search(query: \"label:bounty is:issue is:open no:assignee\", type: ISSUE, first: 20) { nodes { ... on Issue { title url repository { nameWithOwner } } } } }" }

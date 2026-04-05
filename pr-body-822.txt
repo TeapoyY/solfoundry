@@ -1,0 +1,24 @@
+## Bounty T1: Wire Activity Feed to Real API Data
+
+### What was done
+
+Implemented the full frontend wiring for the Activity Feed to consume real API data with auto-refresh and graceful fallback.
+
+**Files changed:**
+
+- `frontend/src/api/activity.ts` — New API client for `GET /api/activity` that normalises the response shape and returns up to 4 events
+- `frontend/src/hooks/useActivityFeed.ts` — New `useActivityFeed` hook using React Query with:
+  - 30-second `refetchInterval` (auto-refresh every 30 s as required)
+  - `retry: false` so failures fall through to mock data immediately
+  - Initial data set to mock events so the feed is never empty on first render
+  - `staleTime` set just below the refresh interval so background refetches don't flash
+- `frontend/src/components/home/ActivityFeed.tsx` — Refactored to:
+  - Accept an optional `events` prop and optional `isLoading` prop
+  - Show "No recent activity" when the list is empty
+  - Show subtle "updating…" indicator during background refetches
+  - Moved mock data out of the component and into the hook (single source of truth)
+- `frontend/src/pages/HomePage.tsx` — Now calls `useActivityFeed()` and passes `events` + `isLoading` to `<ActivityFeed>`
+
+**Fallback behaviour:** If `GET /api/activity` is unavailable or returns an empty list, the hook returns the rich mock dataset so the feed is never blank.
+
+Closes #822
