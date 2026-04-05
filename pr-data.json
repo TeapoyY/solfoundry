@@ -1,0 +1,6 @@
+{
+  "title": "feat: add real-time countdown timer component (Bounty #826)",
+  "head": "TeapoyY:feat/bounty-826-countdown-v3",
+  "base": "main",
+  "body": "Bounty T1: Bounty Countdown Timer Component\n\n- Add BountyCountdown.tsx component with live countdown\n- Integrate into BountyCard.tsx and BountyDetail.tsx\n- Fix missing lib/animations.ts and lib/utils.ts imports"
+}

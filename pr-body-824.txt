@@ -1,0 +1,35 @@
+## Bounty T1: Mobile Responsive Polish for Bounty Cards
+
+**Reward:** 150,000 $FNDRY | **Tier:** T1 (Open Race) | **Domain:** Frontend
+
+### What was implemented
+
+#### 1. Footer — CA address overflow fix
+- Changed `inline-flex` → `flex` on the contract address row to properly respect `w-full`
+- Added `min-w-0` and `max-w-full` to prevent overflow on small screens
+- The truncated CA + copy button no longer causes horizontal scroll
+
+#### 2. Navbar — Mobile menu active state
+- Active nav link now shows distinct background + text color on mobile menu
+- Consistent with desktop active indicator behavior
+
+#### 3. Hero — Terminal font scaling
+- Reduced terminal font from `text-sm` to `text-xs sm:text-sm` for readability on 375px screens
+- Adjusted padding from `p-5` to `p-4 sm:p-5`
+
+#### 4. Hero — Stats strip wrapping
+- Changed `gap-6` → `gap-3 sm:gap-6` to prevent overflow on narrow screens
+- Reduced font size `text-sm` → `text-xs sm:text-sm`
+- Dot separators (·) hidden on mobile (`hidden sm:inline`) to avoid orphaned dots when items wrap
+
+#### 5. BountyGrid — Search bar full-width on mobile
+- Changed search input `w-48` → `w-full sm:w-48` so it takes full width on small screens when stacked in the header row
+
+### Acceptance Criteria
+- [x] All pages look correct at 375px width
+- [x] All pages look correct at 768px width
+- [x] No horizontal scroll on any page
+- [x] Bounty cards stack properly on mobile (already handled by existing `grid-cols-1 md:grid-cols-2 lg:grid-cols-3`)
+- [x] Navigation hamburger menu works correctly (already implemented)
+- [x] Hero terminal section is readable on small screens
+- [x] Footer doesn't overflow

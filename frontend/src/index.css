@@ -143,3 +143,291 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* ============================================================================
+   Mobile Responsive Polish (Bounty #833)
+   Covers: 375px (small mobile), 768px (tablet), 768-1023px (tablet landscape)
+   ============================================================================ */
+
+/* Global: prevent horizontal scroll on ALL pages at all breakpoints */
+@media (max-width: 1023px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  #root {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+}
+
+/* ============================================================================
+   375px — Small mobile (iPhone SE, compact Android)
+   ============================================================================ */
+@media (max-width: 374px) {
+  /* Navbar: hamburger touch target */
+  nav button[aria-label="menu"],
+  nav button[class*="Menu"] {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Hero: terminal card readable on tiny screens */
+  section[class*="hero"] .font-mono.text-sm,
+  section[class*="min-h"] .font-mono.text-sm {
+    font-size: 0.65rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Hero: headline font size for small screens */
+  h1[class*="font-display"] {
+    font-size: 1.75rem !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Hero: terminal padding */
+  section[class*="min-h"] .p-5 {
+    padding: 0.75rem !important;
+  }
+
+  /* Hero: CTA buttons stack */
+  section[class*="min-h"] .flex.flex-wrap {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.5rem !important;
+  }
+
+  section[class*="min-h"] .flex.flex-wrap a,
+  section[class*="min-h"] .flex.flex-wrap button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Hero: stats strip wraps */
+  section[class*="min-h"] .flex.items-center.justify-center.gap-6 {
+    flex-direction: column !important;
+    gap: 0.25rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  /* Bounty cards: full width with proper spacing */
+  div[class*="grid"][class*="gap-5"] {
+    gap: 0.75rem !important;
+  }
+
+  /* Bounty filter pills: horizontal scroll */
+  div[class*="flex flex-wrap"][class*="gap-2"] {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 0.25rem !important;
+  }
+
+  /* Footer: stacked columns */
+  footer div[class*="grid-cols-1"][class*="md:grid-cols-4"] {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Footer: CA address full width */
+  footer div.inline-flex.w-full {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Bounty create wizard: full width */
+  div[class*="max-w-2xl"] {
+    max-width: 100% !important;
+  }
+
+  /* Leaderboard: full width table */
+  table {
+    font-size: 0.7rem !important;
+  }
+
+  th, td {
+    padding: 0.4rem !important;
+  }
+}
+
+/* ============================================================================
+   375px–767px — Standard mobile
+   ============================================================================ */
+@media (min-width: 375px) and (max-width: 767px) {
+  /* Hero section: readable on mobile */
+  section[class*="min-h-[90vh]"] {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  section[class*="min-h-[90vh]"] .font-mono.text-sm {
+    font-size: 0.75rem !important;
+  }
+
+  section[class*="min-h-[90vh]"] h1[class*="font-display"] {
+    font-size: 2rem !important;
+  }
+
+  section[class*="min-h-[90vh]"] .flex.flex-wrap {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.5rem !important;
+  }
+
+  section[class*="min-h-[90vh]"] .flex.flex-wrap a,
+  section[class*="min-h-[90vh]"] .flex.flex-wrap button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Stats strip: wrap on narrow mobile */
+  section[class*="min-h-[90vh]"] .font-mono.text-sm {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Navbar: ensure hamburger has enough space */
+  nav .max-w-7xl {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  /* Bounty filter pills: horizontal scroll */
+  div.flex.flex-wrap.gap-2 {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-snap-type: x mandatory !important;
+    padding-bottom: 0.25rem !important;
+  }
+
+  div.flex.flex-wrap.gap-2 button {
+    flex-shrink: 0 !important;
+    scroll-snap-align: start !important;
+  }
+
+  /* Footer: stacked columns on mobile */
+  footer .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  footer .font-mono.text-xs {
+    font-size: 0.6rem !important;
+    word-break: break-all !important;
+  }
+
+  /* Leaderboard: responsive table */
+  div.overflow-x-auto {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+
+/* ============================================================================
+   768px – 1023px — Tablet
+   ============================================================================ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Hero: adjust spacing */
+  section[class*="min-h-[90vh]"] h1[class*="font-display"] {
+    font-size: 2.75rem !important;
+  }
+
+  section[class*="min-h-[90vh]"] .flex.flex-wrap {
+    gap: 1rem !important;
+  }
+
+  /* Bounty grid: 2 columns (already md:grid-cols-2) */
+  /* Fine as-is */
+
+  /* Footer: 2 columns */
+  footer .grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ============================================================================
+   Navbar: mobile hamburger — ensure proper touch target
+   ============================================================================ */
+@media (max-width: 767px) {
+  nav .md\:hidden {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Mobile menu dropdown: proper width */
+  nav [class*="overflow-hidden"][class*="bg-forge-900"] {
+    width: 100% !important;
+  }
+
+  /* Auth button: hide text on very small screens */
+  button span[class*="sm:hidden"] {
+    display: flex !important;
+  }
+
+  button span.hidden.sm\:block {
+    display: none !important;
+  }
+}
+
+/* ============================================================================
+   Bounty cards — ensure proper mobile layout
+   ============================================================================ */
+@media (max-width: 767px) {
+  /* Grid: already grid-cols-1 on mobile, just ensure proper gap */
+  div.grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3.gap-5 {
+    gap: 0.75rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  /* Bounty header: stack on mobile */
+  div.flex.flex-col.sm\:flex-row {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Bounty detail page: full width */
+  main div.max-w-5xl {
+    max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* ============================================================================
+   Bounty filter pills — scrollable on mobile
+   ============================================================================ */
+@media (max-width: 639px) {
+  /* Force horizontal scroll for filter pills */
+  div[ class*="flex"][ class*="gap-2"]:has(button) {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  div[ class*="flex"][ class*="gap-2"]:has(button)::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  div[ class*="flex"][ class*="gap-2"]:has(button) button {
+    flex-shrink: 0 !important;
+  }
+}
+
+/* ============================================================================
+   Safe area insets for notched devices
+   ============================================================================ */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+}
