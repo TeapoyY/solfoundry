@@ -2,17 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { slideInRight } from '../../lib/animations';
 import { timeAgo } from '../../lib/utils';
+import type { ActivityEvent as ApiActivityEvent } from '../../api/activity';
 
-interface ActivityEvent {
-  id: string;
-  type: 'completed' | 'submitted' | 'posted' | 'review';
-  username: string;
-  avatar_url?: string | null;
-  detail: string;
-  timestamp: string;
-}
+export type ActivityEvent = ApiActivityEvent;
 
-// Mock events for when API doesn't return activity
+// Mock events for initial load before first fetch
 const MOCK_EVENTS: ActivityEvent[] = [
   {
     id: '1',
@@ -75,13 +69,29 @@ function EventItem({ event }: { event: ActivityEvent }) {
   );
 }
 
-export function ActivityFeed({ events }: { events?: ActivityEvent[] }) {
-  const displayEvents = events?.length ? events.slice(0, 4) : MOCK_EVENTS;
-  const [visibleEvents, setVisibleEvents] = useState<ActivityEvent[]>(displayEvents.slice(0, 4));
+function EmptyState() {
+  return (
+    <div className="py-4 px-3 text-center">
+      <p className="text-sm text-text-muted font-mono">No recent activity</p>
+    </div>
+  );
+}
 
-  useEffect(() => {
-    setVisibleEvents(displayEvents.slice(0, 4));
-  }, [events]);
+interface ActivityFeedProps {
+  /** Real events from API. Undefined means not yet loaded (show mock). */
+  events?: ActivityEvent[];
+}
+
+/**
+ * Activity feed showing recent bounty events.
+ * Auto-refresh is handled by the useActivity hook in the parent.
+ */
+export function ActivityFeed({ events }: ActivityFeedProps) {
+  // events === undefined  → loading/initial (show mock)
+  // events === []         → loaded but empty (show "No recent activity")
+  // events !== undefined   → show real events
+  const hasLoaded = events !== undefined;
+  const isEmpty = hasLoaded && events.length === 0;
 
   return (
     <section className="w-full border-y border-border bg-forge-900/50 py-4 overflow-hidden">
@@ -92,18 +102,22 @@ export function ActivityFeed({ events }: { events?: ActivityEvent[] }) {
         </div>
         <div className="space-y-1">
           <AnimatePresence mode="popLayout">
-            {visibleEvents.map((event) => (
-              <motion.div
-                key={event.id}
-                variants={slideInRight}
-                initial="initial"
-                animate="animate"
-                exit={{ opacity: 0, x: -20, transition: { duration: 0.2 } }}
-                layout
-              >
-                <EventItem event={event} />
-              </motion.div>
-            ))}
+            {isEmpty ? (
+              <EmptyState key="empty" />
+            ) : (
+              (events ?? MOCK_EVENTS).slice(0, 4).map((event) => (
+                <motion.div
+                  key={event.id}
+                  variants={slideInRight}
+                  initial="initial"
+                  animate="animate"
+                  exit={{ opacity: 0, x: -20, transition: { duration: 0.2 } }}
+                  layout
+                >
+                  <EventItem event={event} />
+                </motion.div>
+              ))
+            )}
           </AnimatePresence>
         </div>
       </div>
