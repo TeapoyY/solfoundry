@@ -108,8 +108,8 @@ export function BountyCard({ bounty }: BountyCardProps) {
         <div className="flex items-center gap-2 sm:gap-3 text-xs text-text-muted flex-shrink-0">
           <span className="inline-flex items-center gap-1">
             <GitPullRequest className="w-3.5 h-3.5" />
-            <span className="hidden xs:inline">{bounty.submission_count} PRs</span>
-            <span className="xs:hidden">{bounty.submission_count}</span>
+            <span className="hidden sm:inline">{bounty.submission_count} PRs</span>
+            <span className="sm:hidden">{bounty.submission_count}</span>
           </span>
           {bounty.deadline && (
             <span className="hidden sm:inline-flex items-center gap-1">
