@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { PageLayout } from '../components/layout/PageLayout';
 import { PodiumCards } from '../components/leaderboard/PodiumCards';
 import { LeaderboardTable } from '../components/leaderboard/LeaderboardTable';
+import { PodiumCardsSkeleton, LeaderboardRowSkeleton } from '../components/ui/Skeleton';
 import { useLeaderboard } from '../hooks/useLeaderboard';
 import type { TimePeriod } from '../types/leaderboard';
 import { fadeIn } from '../lib/animations';
@@ -47,9 +48,22 @@ export function LeaderboardPage() {
 
         {/* Loading */}
         {isLoading && (
-          <div className="flex justify-center py-16">
-            <div className="w-8 h-8 rounded-full border-2 border-emerald border-t-transparent animate-spin" />
-          </div>
+          <>
+            <PodiumCardsSkeleton />
+            <div className="max-w-4xl mx-auto mt-6 rounded-xl border border-border bg-forge-900 overflow-hidden">
+              {/* Header */}
+              <div className="flex items-center px-4 py-3 border-b border-border/50 text-xs font-semibold text-text-muted uppercase tracking-wider">
+                <div className="w-[60px] text-center">Rank</div>
+                <div className="flex-1">User</div>
+                <div className="w-[100px] text-center">Bounties</div>
+                <div className="w-[120px] text-right">Earned</div>
+                <div className="w-[80px] text-center hidden sm:block">Streak</div>
+              </div>
+              {Array.from({ length: 8 }).map((_, i) => (
+                <LeaderboardRowSkeleton key={i} index={i} />
+              ))}
+            </div>
+          </>
         )}
 
         {/* Error */}
