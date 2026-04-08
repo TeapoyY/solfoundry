@@ -101,24 +101,24 @@ export function HeroSection() {
         className="w-full max-w-xl rounded-xl border border-border bg-forge-900/90 backdrop-blur-sm overflow-hidden shadow-2xl shadow-black/50"
       >
         {/* Title bar */}
-        <div className="flex items-center gap-2 px-4 py-2.5 bg-forge-800 border-b border-border">
-          <div className="flex gap-1.5">
-            <span className="w-3 h-3 rounded-full bg-status-error/80" />
-            <span className="w-3 h-3 rounded-full bg-status-warning/80" />
-            <span className="w-3 h-3 rounded-full bg-status-success/80" />
+        <div className="flex items-center gap-2 px-3 md:px-4 py-2 bg-forge-800 border-b border-border">
+          <div className="flex gap-1.5 flex-shrink-0">
+            <span className="w-2.5 h-2.5 rounded-full bg-status-error/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-status-warning/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-status-success/80" />
           </div>
-          <span className="font-mono text-xs text-text-muted ml-2">solfoundry — terminal</span>
+          <span className="font-mono text-[10px] md:text-xs text-text-muted ml-1 md:ml-2 truncate">solfoundry — terminal</span>
         </div>
 
         {/* Terminal body */}
-        <div className="p-5 font-mono text-sm leading-relaxed">
-          <div className="overflow-hidden">
+        <div className="p-4 md:p-5 font-mono text-xs md:text-sm leading-relaxed">
+          <div className="overflow-hidden max-w-full">
             <span className="text-emerald">$ </span>
-            <span className="text-text-secondary overflow-hidden whitespace-nowrap inline-block animate-typewriter">
+            <span className="text-text-secondary truncate inline-block max-w-[80vw] md:max-w-none align-middle">
               forge bounty --reward 100 --lang typescript --tier 2
             </span>
             {typewriterDone && (
-              <span className="inline-block w-2 h-5 bg-emerald animate-blink ml-0.5 align-middle" />
+              <span className="inline-block w-1.5 md:w-2 h-4 md:h-5 bg-emerald animate-blink ml-0.5 align-middle" />
             )}
           </div>
 
@@ -211,7 +211,7 @@ export function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.5 }}
-        className="flex items-center justify-center gap-6 mt-8 font-mono text-sm text-text-muted"
+        className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mt-8 font-mono text-[10px] sm:text-sm text-text-muted px-2"
       >
         <span>
           <span className="text-text-primary font-semibold">
