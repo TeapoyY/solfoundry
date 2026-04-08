@@ -166,9 +166,16 @@
   - MCP = 2026年的"网站"机会（平台转移红利）
 - 已更新 ai_money_opportunities.md（完整报告）
 
-### Bounty Hunt 规则 (2026-04-04 更新)
+### Bounty Hunt 规则 (2026-04-08 更新) ⚠️
 - **不评论别人的工作** - 不留言、不讨论、只干活
 - 直接认领 Bounty → 直接实现 → 直接提交 PR
+- **⚠️ 验证规则: `bounty` 标签 ≠ 真钱！**
+  - 必须验证实际金额: GitHub Issue 正文中写明 `$XX` 美元金额
+  - 或verified可交易的token (如 FNDRY = SolFoundry 平台币)
+  - 很多仓库用 `bounty` 标签做内部积分系统，并非真实现金
+  - **假 Bounty 特征**: 只有标签无金额、积分/积分/徽章奖励
+  - **真 Bounty 特征**: 明确 $ 金额、Algora.io/BountyHub.dev 平台列出的
+- **⚠️ PR 必须验证**: subagent 报告可能造假！每次用 `gh pr list --author TeapoyY` 核实真实作者
 
 ### Cron Job 错误调查
 - **stock-monitor**: cron job 配置为 agentTurn，timeout 太短(60s)，但脚本持续运行
@@ -427,24 +434,28 @@
 - **测试文件**: `backend/test_samples/en10204_certificate.pdf` + `.png`
 
 ### 技术栈
-- **OCR**: PyMuPDF (text PDFs) + PaddleOCR 3.4.0 (images)
+- **OCR**: PyMuPDF (text PDFs) + EasyOCR fallback (PaddleOCR DISABLED - hangs on OCR calls)
 - **Vision LLM**: Ollama minicpm-v (~4GB, via `/api/vision/file`)
 - **Text LLM**: Ollama gemma3:1b (via `/api/extract`)
-- **Backend**: FastAPI + uvicorn reload
-- **端口**: 8002 (手动启动时 `python backend/main.py`)
+- **Backend**: FastAPI + uvicorn
+- **端口**: 8002 (启动: `cd backend && uvicorn main:app --host 0.0.0.0 --port 8002`)
 
 ### E2E 测试结果 (EN 10204 钢材证书) ✅
 1. OCR PDF (PyMuPDF): 1061 chars, 33 blocks ✅
-2. OCR PNG (PaddleOCR): 996 chars, 32 blocks ✅
-3. Extract (OCR→gemma3:1b): 12/12 fields, 0.99 conf ✅
-4. Vision PNG (minicpm-v): 12/12 fields, 1.0 conf ✅
-5. Vision PDF (minicpm-v): 12/12 fields ✅
+2. Extract (OCR→gemma3:1b): 12/12 fields, 0.99 conf ✅ (PDF preferred)
+3. Vision PNG (minicpm-v): 9-12/12 fields (LLM JSON variance) ✅
+4. OCR PNG (EasyOCR): returns 0 chars for this PNG — use vision endpoint instead
+
+### 已知限制
+- **PaddleOCR**: Hangs during OCR execution on Windows (connectivity check blocks). DISABLE_PADDLEOCR=1 in .env. Alternative: use vision endpoint for images.
+- **PNG OCR**: EasyOCR returns 0 chars for en10204_certificate.png. Use `/api/vision/file` for image extraction instead.
+- **DeepSeek**: No API key configured.
 
 ### 关键修复 (2026-04-08)
 - FastAPI `template_id: str = Form("")` — 修复 Form 数据读取
 - `_map_results` — 同时支持 `{"key":"..."}` 和 `{"field_key":"..."}` 格式
 - minicpm-v JSON 解析 — 处理 `{{...}}` 双括号、JS注释、未加引号值
-- PaddleOCR reader 缓存 — 避免每次调用重新加载模型 (~90s → ~20s)
+- httpx.Client() in `_call_ollama` — 使用持久连接替代 httpx.post() 模块函数 (修复 Windows FastAPI 环境下 Ollama 调用返回空结果)
 - `.gitignore` — 添加 `*.log` 和 `server*.log` 排除服务器运行日志
 
 ### DeepSeek 支持
@@ -452,5 +463,5 @@
 - 当前使用 Ollama (gemma3:1b + minicpm-v) — DeepSeek API key 未配置
 
 ### 服务状态
-- Backend: http://localhost:8002 (v0.3.0, reload=True, PID ~2696)
+- Backend: http://localhost:8002 (v0.3.0, PID ~5928)
 - Frontend dev: `cd frontend && npm run dev`
