@@ -5,6 +5,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './contexts/AuthContext';
 import { ToastProvider } from './contexts/ToastContext';
 import { queryClient } from './services/queryClient';
+import { ToastProvider } from './components/toast';
 import App from './App';
 import './index.css';
 
