@@ -211,7 +211,7 @@ export function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.5 }}
-        className="flex items-center justify-center gap-6 mt-8 font-mono text-sm text-text-muted"
+        className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-8 font-mono text-xs sm:text-sm text-text-muted"
       >
         <span>
           <span className="text-text-primary font-semibold">
