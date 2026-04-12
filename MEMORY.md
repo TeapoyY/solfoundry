@@ -33,8 +33,8 @@
 ### Active PRs
 | PR | Repo | Bounty | Status |
 |----|------|--------|--------|
-| #887 | SolFoundry/solfoundry | T1: countdown timer + search bar | ✅ OPEN |
-| #875 | SolFoundry/solfoundry | T1: Fix GitHub OAuth Sign-In | ✅ OPEN |
+| #887 | SolFoundry/solfoundry | T1: countdown + search bar | ✅ OPEN |
+| #875 | SolFoundry/solfoundry | T1: Fix GitHub OAuth | ✅ OPEN |
 
 ## AI Money Hunter 深度分析 (2026-04-12 更新)
 详见: ai_money_opportunities.md
@@ -57,7 +57,7 @@
 | stock-monitor | 股票盯盘 (拓维信息/华胜天成/心动公司) |
 | ai-trader | AI Trader 加密货币交易 |
 | ai-money-hunter | AI自动赚钱机会探索 |
-| algora-bounty-hunt | Algora.io bounty 监控 |
+
 
 ## 工具和 Skills
 - GitHub CLI: `winget install GitHub.cli` → `gh auth login`; ClawHub: `clawhub install <skill>`
@@ -85,6 +85,4 @@
 ### Parallax Train Widget
 - 仓库: https://github.com/TeapoyY/parallax-train-widget; 模式: Normal / Transparent / Desktop
 
-## ⚠️ 注意
-- solfoundry git clone 失败 (路径错误); 需要手动检查
-- MEMORY.md 精简于 2026-04-12 18:50 (原 3960 chars → 现 ~2200 chars)
+

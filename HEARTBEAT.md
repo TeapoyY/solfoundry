@@ -1,20 +1,36 @@
 # HEARTBEAT.md - Active Tasks Monitor
-Updated: 2026-04-12 13:09 HKT
+Updated: 2026-04-13 01:24 HKT
 
 ## Active Projects
 
 ### FormForge (AI Form Filler)
 - **Repo**: https://github.com/TeapoyY/ai-form-filler
-- **Stack**: FastAPI + PyMuPDF + Ollama (gemma3:1b + minicpm-v)
-- **Status**: ✅ Active dev (v0.3.0)
+- **Stack**: FastAPI + PyMuPDF + OpenRouter (Gemini 2.5 Flash Image)
+- **Status**: ✅ OpenRouter works (port 8001)
 - **Backend**: port 8001
-- **OCR**: Primary=EasyOCR+gemma3 (化学元素✅), Experimental=minicpm-v (慢/截断)
-- **OCR注意**: DeepSeek-OCR-2 有幻觉问题，不推荐；中文文档推荐 PaddleOCR PP-OCRv4 或百度 OCR API
+- **OCR**: PyMuPDF text, fallback EasyOCR/PaddleOCR DISABLED (slow)
+- **LLM**: OpenRouter google/gemini-2.5-flash-image via httpx (proxies={...}, trust_env=False)
+- **Proxy**: http://127.0.0.1:7890 (Clash)
+- **EN10204**: 12 fields in ~6s ✅
+
+### LearnAny (新)
+- **Repo**: https://github.com/TeapoyY/learn-any
+- **Stack**: FastAPI + OpenRouter + 单文件 SPA
+- **Status**: ✅ 运行中 (port 8003)
+- **功能**: 费曼+苏格拉底渐进学习引擎
+- **注意**: fallback硬编码计划(网络不通时)
 
 ### AI News / WorldPredict
 - **Repos**: ai-news, world-predict
 - **Status**: ✅ Running
 - **Ports**: 8002 (news), 8011 (wp), 3002/3004 (frontend)
+
+### LearnAny (新)
+- **Repo**: https://github.com/TeapoyY/learn-any
+- **Stack**: FastAPI + MiniMax + 单文件 SPA
+- **Status**: ✅ 新建完成
+- **Backend**: port 8003
+- **功能**: 费曼+苏格拉底渐进学习引擎
 
 ### Parallax Train Widget
 - **Repo**: https://github.com/TeapoyY/parallax-train-widget
@@ -93,3 +109,4 @@ Updated: 2026-04-12 13:09 HKT
 - WorldPredict backend: 8011
 - FormForge backend: 8001
 - AI Phone Agent backend: 8013
+- LearnAny backend: 8003
