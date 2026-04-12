@@ -5,6 +5,7 @@ import { Check, ChevronRight, Loader2, Copy } from 'lucide-react';
 import type { BountyCreatePayload } from '../../types/bounty';
 import { createBounty, getTreasuryDepositInfo, verifyEscrowDeposit } from '../../api/bounties';
 import { pageTransition } from '../../lib/animations';
+import { useToast } from '../../hooks/useToast';
 
 const PRESET_AMOUNTS = [10, 20, 50, 100, 200];
 const PLATFORM_FEE_PCT = 0.05;
@@ -263,12 +264,14 @@ function Step3({
   onBack,
   onSubmit,
   creating,
+  toast,
 }: {
   state: WizardState;
   onChange: (k: keyof WizardState, v: unknown) => void;
   onBack: () => void;
   onSubmit: () => void;
   creating: boolean;
+  toast: ReturnType<typeof useToast>;
 }) {
   const [verifying, setVerifying] = useState(false);
   const [verifyError, setVerifyError] = useState<string | null>(null);
@@ -292,11 +295,14 @@ function Step3({
       const result = await verifyEscrowDeposit({ bounty_id: state.bounty_id, tx_signature: state.tx_signature });
       if (result.verified) {
         onChange('verified', true);
+        toast.success('Payment verified! You can now publish the bounty.');
       } else {
         setVerifyError(result.error ?? 'Verification failed. Check your transaction signature.');
+        toast.error(result.error ?? 'Verification failed.');
       }
     } catch {
       setVerifyError('Verification failed. Try again.');
+      toast.error('Verification failed. Try again.');
     } finally {
       setVerifying(false);
     }
@@ -380,6 +386,7 @@ function Step3({
 
 export function BountyCreateWizard() {
   const navigate = useNavigate();
+  const toast = useToast();
   const [step, setStep] = useState(0);
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -421,9 +428,11 @@ export function BountyCreateWizard() {
       onChange('bounty_id', bounty.id);
       onChange('treasury_address', depositInfo.treasury_address);
       onChange('total_to_fund', depositInfo.total_to_fund);
+      toast.success('Bounty created! Now fund the escrow to publish.');
       setStep(2);
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Failed to create bounty. Try again.');
+      toast.error(e instanceof Error ? e.message : 'Failed to create bounty. Try again.');
     } finally {
       setCreating(false);
     }
@@ -436,8 +445,10 @@ export function BountyCreateWizard() {
     try {
       await verifyEscrowDeposit({ bounty_id: state.bounty_id, tx_signature: state.tx_signature });
       setSuccess(true);
+      toast.success('🎉 Bounty published! Contributors can now find it.');
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Failed to publish bounty. Try again.');
+      toast.error(e instanceof Error ? e.message : 'Failed to publish bounty. Try again.');
     } finally {
       setCreating(false);
     }
@@ -476,7 +487,7 @@ export function BountyCreateWizard() {
         >
           {step === 0 && <Step1 state={state} onChange={onChange} onNext={handleStep1Next} />}
           {step === 1 && <Step2 state={state} onChange={onChange} onNext={handleStep2Next} onBack={() => setStep(0)} />}
-          {step === 2 && <Step3 state={state} onChange={onChange} onBack={() => setStep(1)} onSubmit={handlePublish} creating={creating} />}
+          {step === 2 && <Step3 state={state} onChange={onChange} onBack={() => setStep(1)} onSubmit={handlePublish} creating={creating} toast={toast} />}
         </motion.div>
       </AnimatePresence>
     </div>
