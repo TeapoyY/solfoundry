@@ -76,6 +76,12 @@ export function BountyCountdown({ deadline, variant = 'inline', className = '' }
   );
 }
 
+/**
+ * Computes the remaining time components and urgency flags for a given deadline.
+ *
+ * @param deadline - ISO date string for the bounty deadline
+ * @returns Object containing days/hours/minutes/seconds remaining, plus expired/urgent/warning booleans
+ */
 function computeTimeLeft(deadline: string) {
   const now = Date.now();
   const deadlineMs = new Date(deadline).getTime();
