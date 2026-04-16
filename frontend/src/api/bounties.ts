@@ -13,8 +13,15 @@ export interface BountiesListParams {
   limit?: number;
   offset?: number;
   skill?: string;
+  skills?: string[];        // multi-select languages
   tier?: string;
+  tiers?: string[];         // multi-select tier (T1, T2, T3)
+  domain?: string;          // frontend / backend / agent / integration / creative / docs / security
+  domains?: string[];      // multi-select domains
   reward_token?: string;
+  reward_min?: number;      // minimum reward amount filter
+  reward_max?: number;      // maximum reward amount filter
+  search?: string;         // text search in title/description
 }
 
 export interface BountiesListResponse {
@@ -35,8 +42,19 @@ function mapBounty(b: Bounty): Bounty {
 }
 
 export async function listBounties(params?: BountiesListParams): Promise<BountiesListResponse> {
+  // Serialize array params as comma-separated strings
+  const serializedParams: Record<string, string | number | boolean | undefined> = {};
+  if (params) {
+    for (const [key, value] of Object.entries(params)) {
+      if (Array.isArray(value)) {
+        serializedParams[key] = value.join(',') || undefined;
+      } else {
+        serializedParams[key] = value as string | number | boolean | undefined;
+      }
+    }
+  }
   const response = await apiClient<BountiesListResponse | Bounty[]>('/api/bounties', {
-    params: params as Record<string, string | number | boolean | undefined>,
+    params: serializedParams,
   });
   // Handle both array and paginated response shapes
   if (Array.isArray(response)) {

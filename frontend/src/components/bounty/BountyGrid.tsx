@@ -1,32 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ChevronDown, Loader2, Plus } from 'lucide-react';
 import { BountyCard } from './BountyCard';
 import { useInfiniteBounties } from '../../hooks/useBounties';
 import { staggerContainer, staggerItem } from '../../lib/animations';
+import { AdvancedSearchFilters, type AdvancedFilters } from './AdvancedSearchFilters';
 
 const FILTER_SKILLS = ['All', 'TypeScript', 'Rust', 'Solidity', 'Python', 'Go', 'JavaScript'];
 
 export function BountyGrid() {
   const [activeSkill, setActiveSkill] = useState<string>('All');
   const [statusFilter, setStatusFilter] = useState<string>('open');
+  const [advancedFilters, setAdvancedFilters] = useState<AdvancedFilters>({
+    skills: [],
+    tiers: [],
+    domains: [],
+    rewardMin: 0,
+    rewardMax: Infinity,
+    search: '',
+  });
 
-  const params = {
-    status: statusFilter,
-    skill: activeSkill !== 'All' ? activeSkill : undefined,
-  };
+  // Build API params from all filter state
+  const buildParams = useCallback(() => {
+    const params: Record<string, string | number | undefined> = {
+      status: statusFilter,
+      skill: activeSkill !== 'All' ? activeSkill : undefined,
+      search: advancedFilters.search || undefined,
+      reward_min: advancedFilters.rewardMin > 0 ? advancedFilters.rewardMin : undefined,
+      reward_max: advancedFilters.rewardMax < Infinity ? advancedFilters.rewardMax : undefined,
+    };
+
+    // Multi-select: use first selected skill/tier/domain if any (API supports comma-sep or repeated params)
+    if (advancedFilters.skills.length > 0) {
+      params.skills = advancedFilters.skills.join(',');
+    }
+    if (advancedFilters.tiers.length > 0) {
+      params.tiers = advancedFilters.tiers.join(',');
+    }
+    if (advancedFilters.domains.length > 0) {
+      params.domains = advancedFilters.domains.join(',');
+    }
+
+    return params;
+  }, [activeSkill, statusFilter, advancedFilters]);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
-    useInfiniteBounties(params);
+    useInfiniteBounties(buildParams() as Parameters<typeof useInfiniteBounties>[0]);
 
   const allBounties = data?.pages.flatMap((p) => p.items) ?? [];
+
+  const handleSearch = useCallback((searchText: string) => {
+    setAdvancedFilters((prev) => ({ ...prev, search: searchText }));
+  }, []);
+
+  const activeFilterCount =
+    advancedFilters.skills.length +
+    advancedFilters.tiers.length +
+    advancedFilters.domains.length +
+    (advancedFilters.rewardMin > 0 ? 1 : 0) +
+    (advancedFilters.rewardMax < Infinity ? 1 : 0) +
+    (advancedFilters.search !== '' ? 1 : 0);
 
   return (
     <section id="bounties" className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header row */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
           <h2 className="font-sans text-2xl font-semibold text-text-primary">Open Bounties</h2>
           <div className="flex items-center gap-2">
             <Link
@@ -53,8 +93,15 @@ export function BountyGrid() {
           </div>
         </div>
 
-        {/* Filter pills */}
-        <div className="flex items-center gap-2 flex-wrap mb-8">
+        {/* Advanced search & filters */}
+        <AdvancedSearchFilters
+          filters={advancedFilters}
+          onChange={setAdvancedFilters}
+          onSearch={handleSearch}
+        />
+
+        {/* Legacy skill pills — kept for backward compat; hidden when advanced skills are active */}
+        <div className="flex items-center gap-2 flex-wrap mb-6">
           {FILTER_SKILLS.map((skill) => (
             <button
               key={skill}
@@ -68,6 +115,11 @@ export function BountyGrid() {
               {skill}
             </button>
           ))}
+          {activeFilterCount > 0 && (
+            <span className="text-xs text-text-muted px-2 py-1.5">
+              {activeFilterCount} advanced filter{activeFilterCount !== 1 ? 's' : ''} active
+            </span>
+          )}
         </div>
 
         {/* Loading state */}
@@ -97,7 +149,9 @@ export function BountyGrid() {
           <div className="text-center py-16">
             <p className="text-text-muted text-lg mb-2">No bounties found</p>
             <p className="text-text-muted text-sm">
-              {activeSkill !== 'All' ? `Try a different language filter.` : 'Check back soon for new bounties.'}
+              {activeSkill !== 'All' || activeFilterCount > 0
+                ? 'Try adjusting your filters.'
+                : 'Check back soon for new bounties.'}
             </p>
           </div>
         )}
