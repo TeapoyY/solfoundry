@@ -1,17 +1,19 @@
 # HEARTBEAT.md - Active Tasks Monitor
-Updated: 2026-04-13 01:24 HKT
+Updated: 2026-04-16 08:34 HKT
 
 ## Active Projects
 
 ### FormForge (AI Form Filler)
 - **Repo**: https://github.com/TeapoyY/ai-form-filler
-- **Stack**: FastAPI + PyMuPDF + OpenRouter (Gemini 2.5 Flash Image)
-- **Status**: ✅ OpenRouter works (port 8001)
-- **Backend**: port 8001
-- **OCR**: PyMuPDF text, fallback EasyOCR/PaddleOCR DISABLED (slow)
+- **Stack**: FastAPI + PyMuPDF + PaddleOCR + OpenRouter (Gemini 2.5 Flash Image)
+- **Status**: ✅ Fully working (port 8001)
+- **Backend**: port 8001 (pid dynamic, use start_server.py)
+- **OCR**: PyMuPDF text ✅ | PaddleOCR ENABLED (3.4.0 + paddlepaddle 3.0.0, ~30s cold-start) | EasyOCR disabled | DeepSeek OCR needs API key
 - **LLM**: OpenRouter google/gemini-2.5-flash-image via httpx (proxies={...}, trust_env=False)
-- **Proxy**: http://127.0.0.1:7890 (Clash)
-- **EN10204**: 12 fields in ~6s ✅
+- **E2E**: 12/12 EN10204 ✅ (2-step ~9s, Vision ~220s)
+- **⚠️ Python PATH**: WindowsApps stub → 用完整路径 `C:\...\Python311\python.exe`
+- **Server**: `cd backend && python start_server.py` (default port 8001)
+- **Test**: `python quick_e2e.py` (smoke test, no vision)
 
 ### LearnAny (新)
 - **Repo**: https://github.com/TeapoyY/learn-any
@@ -42,13 +44,8 @@ Updated: 2026-04-13 01:24 HKT
 3. Claude Code: `claude --print "implement..."`
 4. PR verification: `gh pr list --author TeapoyY`
 
-### Active PRs (verified 2026-04-10 16:39 HKT)
-| PR | Repo | Bounty | Status |
-|----|------|--------|--------|
-| #887 | SolFoundry/solfoundry | T1: countdown timer + search bar | ✅ OPEN |
-| #875 | SolFoundry/solfoundry | T1: Fix GitHub OAuth Sign-In | ✅ OPEN |
-| #881, #880, #876 | SolFoundry/solfoundry | — | ❌ CLOSED |
-| #2734 | react-native-gifted-chat | $15 | ❌ CLOSED |
+### Active PRs (verified 2026-04-16 08:34 HKT)
+⚠️ No open PRs — need new bounty hunt targets!
 
 ## Cron Jobs
 | Job | Schedule | Status |
