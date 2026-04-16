@@ -13,6 +13,10 @@ interface BountyDetailProps {
   bounty: Bounty;
 }
 
+/**
+ * BountyDetail renders the full bounty page: title, description, requirements,
+ * submission form (authenticated users), and a sidebar with reward, deadline, and status.
+ */
 export function BountyDetail({ bounty }: BountyDetailProps) {
   const { isAuthenticated } = useAuth();
   const [submitting, setSubmitting] = useState(false);

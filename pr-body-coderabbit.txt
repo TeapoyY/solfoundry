@@ -1,0 +1,22 @@
+## Summary of Changes
+
+Fixes all 7 CodeRabbit review issues for PR #875:
+
+1. **Docstring coverage (50% to 80%+)** - Added docstrings to all exported functions in auth.ts, Navbar.tsx, and GitHubCallbackPage.tsx.
+
+2. **auth.ts: client_id validation** - buildGitHubAuthorizeUrl() throws a descriptive error if VITE_GITHUB_CLIENT_ID is not configured, before attempting to build the URL.
+
+3. **auth.ts: CSRF state persistence** - State token generated in buildGitHubAuthorizeUrl() is stored in sessionStorage and validated in GitHubCallbackPage.tsx on callback.
+
+4. **auth.ts: catch-all masks contract failures** - getGitHubAuthorizeUrl() now only falls back to the direct OAuth URL for genuine network errors (TypeError) or HTTP 5xx/503/504/404 responses. Malformed response bodies throw instead of falling through silently.
+
+5. **auth.ts: logout() doesn't clear local tokens on error** - logout() now uses a finally block to guarantee clearAuthStorage() runs regardless of server response.
+
+6. **Navbar.tsx: raw err.message leaks info** - Error handler now uses console.error() for the raw error and displays a generic user-facing message: 'Sign-in failed. Please try again or contact support.'
+
+7. **Navbar.tsx: URL validation insufficient** - handleGitHubSignIn() now validates that the returned URL uses https:// protocol and matches window.location.origin before navigating.
+
+## Files Changed
+- frontend/src/api/auth.ts
+- frontend/src/components/layout/Navbar.tsx
+- frontend/src/pages/GitHubCallbackPage.tsx

@@ -46,9 +46,11 @@ interface BountyCountdownProps {
   showSeconds?: boolean;
   /** Additional CSS classes. */
   className?: string;
+  /** Visual variant. 'badge' renders a compact pill badge. Default: 'default'. */
+  variant?: 'default' | 'badge';
 }
 
-export function BountyCountdown({ deadline, compact = false, showSeconds = false, className = '' }: BountyCountdownProps) {
+export function BountyCountdown({ deadline, compact = false, showSeconds = false, className = '', variant = 'default' }: BountyCountdownProps) {
   const [parts, setParts] = useState(() => getTimeParts(deadline));
 
   useEffect(() => {
@@ -61,6 +63,18 @@ export function BountyCountdown({ deadline, compact = false, showSeconds = false
 
   const urgency = getUrgency(parts.expired, parts.days, parts.hours);
   const style = urgencyStyles[urgency];
+
+  // Badge variant: renders a compact pill-style badge (useful for sidebar/table rows)
+  if (variant === 'badge') {
+    return (
+      <span
+        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium border ${style.bg} ${style.border} ${style.text}`}
+      >
+        {style.icon}
+        {parts.expired ? 'Expired' : `${parts.days}d ${parts.hours}h`}
+      </span>
+    );
+  }
 
   if (compact) {
     return (

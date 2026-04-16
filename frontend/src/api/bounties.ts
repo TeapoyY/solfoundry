@@ -15,6 +15,8 @@ export interface BountiesListParams {
   skill?: string;
   tier?: string;
   reward_token?: string;
+  /** Full-text search across title, description, skills, category, org_name, and repo_name. */
+  search?: string;
 }
 
 export interface BountiesListResponse {
@@ -74,6 +76,9 @@ export async function getTreasuryDepositInfo(bountyId: string): Promise<Treasury
   });
 }
 
+/**
+ * Verify an on-chain escrow deposit was made for a bounty.
+ */
 export async function verifyEscrowDeposit(payload: EscrowVerifyPayload): Promise<EscrowVerifyResult> {
   return apiClient<EscrowVerifyResult>('/api/escrow/verify-deposit', {
     method: 'POST',
@@ -92,10 +97,16 @@ export interface ReviewFeeInfo {
   price_source: string;
 }
 
+/**
+ * Get the AI review fee required for a bounty submission (amount, token, pricing).
+ */
 export async function getReviewFee(bountyId: string): Promise<ReviewFeeInfo> {
   return apiClient<ReviewFeeInfo>(`/api/review-fee/${bountyId}`);
 }
 
+/**
+ * Verify an on-chain payment of the AI review fee for a bounty submission.
+ */
 export async function verifyReviewFee(payload: {
   bounty_id: string;
   tx_signature: string;

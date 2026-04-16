@@ -8,6 +8,10 @@ import { staggerContainer, staggerItem } from '../../lib/animations';
 
 const FILTER_SKILLS = ['All', 'TypeScript', 'Rust', 'Solidity', 'Python', 'Go', 'JavaScript'];
 
+/**
+ * BountyGrid displays the browse bounties page: a filterable, searchable,
+ * infinite-scroll grid of bounty cards.
+ */
 export function BountyGrid() {
   const [activeSkill, setActiveSkill] = useState<string>('All');
   const [statusFilter, setStatusFilter] = useState<string>('open');
@@ -20,20 +24,18 @@ export function BountyGrid() {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const params = {
-    status: statusFilter,
-    skill: activeSkill !== 'All' ? activeSkill : undefined,
-  };
+  // Derive effectiveSearch once from the debounced query; use consistently throughout
+  const effectiveSearch = debouncedQuery.trim() || undefined;
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
-    useInfiniteBounties(params);
+    useInfiniteBounties({ status: statusFilter, skill: activeSkill !== 'All' ? activeSkill : undefined, search: effectiveSearch });
 
   const allBounties = data?.pages.flatMap((p) => p.items) ?? [];
 
-  // Client-side search filter
+  // Client-side refinement filter (server handles primary search; this catches edge cases)
   const filteredBounties = useMemo(() => {
-    if (!debouncedQuery.trim()) return allBounties;
-    const q = debouncedQuery.toLowerCase();
+    if (!effectiveSearch) return allBounties;
+    const q = effectiveSearch.toLowerCase();
     return allBounties.filter((b) => {
       const titleMatch = b.title?.toLowerCase().includes(q);
       const descMatch = b.description?.toLowerCase().includes(q);
@@ -43,9 +45,9 @@ export function BountyGrid() {
       const repoMatch = b.repo_name?.toLowerCase().includes(q);
       return titleMatch || descMatch || skillMatch || catMatch || orgMatch || repoMatch;
     });
-  }, [allBounties, debouncedQuery]);
+  }, [allBounties, effectiveSearch]);
 
-  const isSearching = debouncedQuery.trim().length > 0;
+  const isSearching = !!effectiveSearch;
 
   return (
     <section id="bounties" className="py-16 md:py-24">
@@ -59,6 +61,7 @@ export function BountyGrid() {
             <input
               type="text"
               placeholder="Search bounties..."
+              aria-label="Search bounties"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full sm:w-64 appearance-none bg-forge-800 border border-border rounded-lg pl-9 pr-8 py-2 text-sm text-text-secondary placeholder-text-muted focus:border-emerald outline-none transition-colors duration-150"
@@ -159,7 +162,7 @@ export function BountyGrid() {
         {/* Result count when searching */}
         {isSearching && !isLoading && filteredBounties.length > 0 && (
           <p className="text-sm text-text-muted mb-6">
-            {filteredBounties.length} result{filteredBounties.length !== 1 ? 's' : ''} for &quot;{debouncedQuery}&quot;
+            {filteredBounties.length} result{filteredBounties.length !== 1 ? 's' : ''} for &quot;{effectiveSearch}&quot;
           </p>
         )}
 
