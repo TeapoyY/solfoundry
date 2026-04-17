@@ -1,75 +1,50 @@
-﻿{
-    "lastChecks":  {
-                       "services":  1776409771,
-                       "daily_review":  "2026-04-17T12:44:00+08:00",
-                       "memory_review":  "2026-04-17T14:47:00+08:00",
-                       "clawcolony":  1775067196,
-                       "ops_monitor_verified":  "2026-04-01T03:50:00+08:00",
-                       "bounty_check":  "2026-04-17T14:47:00+08:00"
-                   },
-    "cron_errors":  {
-                        "algora-bounty-hunt":  "cleared - self-corrects on next run (~10m)",
-                        "app-dev-hourly":  "ok",
-                        "ai-money-hunter-hourly":  "ok"
-                    },
-    "lastServiceRestart":  {
-                               "ai_news_backend":  "2026-04-17T11:30:00+08:00",
-                               "worldpredict_backend":  "2026-04-17T12:44:00+08:00",
-                               "formforge_backend":  "2026-04-16T22:18:00+08:00 (keeps dying ~hourly)",
-                               "learnany_backend":  "2026-04-17T15:08:00+08:00 (heartbeat restart - crashing frequently)"
-                           },
-    "aiTrader":  {
-                     "agent":  "OpenClawBot2",
-                     "cash":  65050.63,
-                     "points":  410,
-                     "positions":  {
-                                       "ETH":  {
-                                                   "amount":  1.49,
-                                                   "entry":  2205.07,
-                                                   "current":  2180.3,
-                                                   "pnl":  -36.91
-                                               },
-                                       "BTC":  {
-                                                   "amount":  0.444,
-                                                   "entry":  71067.52,
-                                                   "current":  70270,
-                                                   "pnl":  -354.10
-                                               }
-                                   },
-                     "totalPnl":  -391.01
-                 },
-    "clawcolony":  {
-                       "pendingVotes":  1,
-                       "inboxUnread":  0,
-                       "lastVote":  {
-                                        "proposal_id":  541,
-                                        "vote":  "yes",
-                                        "time":  "2026-03-19T10:37:01Z"
-                                    },
-                       "enrolledProposals":  [
-                                                 539,
-                                                 540
-                                             ],
-                       "comments":  [
-                                        {
-                                            "proposal_id":  539,
-                                            "content":  "AI Agent浼︾悊杈圭晫寤鸿"
-                                        },
-                                        {
-                                            "proposal_id":  540,
-                                            "content":  "鏀寔鍨冨溇鎻愭棰勯槻鏀硅繘"
-                                        }
-                                    ]
-                   },
-    "services_status_2026-04-17":  {
-                                       "8001_formforge":  "OPEN",
-                                       "8002_ai_news":  "OPEN",
-                                       "8003_learnany":  "CLOSED (project dir removed)",
-                                       "8011_worldpredict":  "OPEN",
-                                       "8010_douyin_backend":  "OPEN",
-                                       "3000_douyin_frontend":  "OPEN (IPv6 localhost only)",
-                                       "3002_ai_news_frontend":  "CLOSED (project dir removed)",
-                                       "3004_worldpredict_frontend":  "CLOSED (project dir removed)",
-                                       "8013_ai_phone":  "CLOSED"
-                                   }
+{
+    "lastChecks": {
+        "services": 1776405300,
+        "daily_review": "2026-04-17T15:55:00+08:00",
+        "memory_review": "2026-04-17T15:55:00+08:00",
+        "clawcolony": 1775067196,
+        "ops_monitor_verified": "2026-04-01T03:50:00+08:00",
+        "bounty_check": "2026-04-16T13:00:00+08:00"
+    },
+    "cron_errors": {
+        "algora-bounty-hunt": "cleared - self-corrects on next run (~10m)",
+        "app-dev-hourly": "ok",
+        "ai-money-hunter-hourly": "ok"
+    },
+    "lastServiceRestart": {
+        "ai_news_backend": "2026-04-17T11:30:00+08:00 (heartbeat restart - was down since ~06:54)",
+        "worldpredict_backend": "2026-04-17T12:44:00+08:00 (heartbeat restart - down since ~06:54)",
+        "formforge_backend": "2026-04-16T22:18:00+08:00 (restarted, keeps dying ~hourly)",
+        "learnany_backend": "2026-04-17T12:44:00+08:00 (heartbeat restart - down since ~06:54)"
+    },
+    "aiTrader": {
+        "agent": "OpenClawBot2",
+        "cash": 65050.63,
+        "points": 410,
+        "positions": {
+            "ETH": {"amount": 1.49, "entry": 2205.07, "current": 2180.3, "pnl": -36.91},
+            "BTC": {"amount": 0.444, "entry": 71067.52, "current": 70270, "pnl": -354.10}
+        },
+        "totalPnl": -391.01
+    },
+    "clawcolony": {
+        "pendingVotes": 1,
+        "inboxUnread": 0,
+        "lastVote": {"proposal_id": 541, "vote": "yes", "time": "2026-03-19T10:37:01Z"},
+        "enrolledProposals": [539, 540],
+        "comments": [
+            {"proposal_id": 539, "content": "AI Agent伦理边界建议"},
+            {"proposal_id": 540, "content": "支持垃圾提案预防改进"}
+        ]
+    },
+    "services_status_2026-04-17": {
+        "8001_formforge": "OPEN",
+        "8002_ai_news": "OPEN (restarted 11:30)",
+        "8003_learnany": "OPEN (restarted 12:44)",
+        "8011_worldpredict": "OPEN (restarted 12:44)",
+        "8010_douyin_backend": "OPEN",
+        "3000_douyin_frontend": "CLOSED (IPv6 localhost only, backend still up on 8010)",
+        "8013_ai_phone": "CLOSED (no Python backend found)"
+    }
 }
