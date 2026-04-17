@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ChevronDown, Loader2, Plus } from 'lucide-react';
+import { ChevronDown, Loader2, Plus, Search, X } from 'lucide-react';
 import { BountyCard } from './BountyCard';
 import { useInfiniteBounties } from '../../hooks/useBounties';
+import { useDebounce } from '../../hooks/useDebounce';
 import { staggerContainer, staggerItem } from '../../lib/animations';
 
 const FILTER_SKILLS = ['All', 'TypeScript', 'Rust', 'Solidity', 'Python', 'Go', 'JavaScript'];
@@ -11,10 +12,13 @@ const FILTER_SKILLS = ['All', 'TypeScript', 'Rust', 'Solidity', 'Python', 'Go', 
 export function BountyGrid() {
   const [activeSkill, setActiveSkill] = useState<string>('All');
   const [statusFilter, setStatusFilter] = useState<string>('open');
+  const [searchInput, setSearchInput] = useState<string>('');
+  const debouncedSearch = useDebounce(searchInput, 300);
 
   const params = {
     status: statusFilter,
     skill: activeSkill !== 'All' ? activeSkill : undefined,
+    search: debouncedSearch || undefined,
   };
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
@@ -28,7 +32,27 @@ export function BountyGrid() {
         {/* Header row */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <h2 className="font-sans text-2xl font-semibold text-text-primary">Open Bounties</h2>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Search input */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-text-muted pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search bounties..."
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                className="appearance-none bg-forge-800 border border-border rounded-lg pl-9 pr-8 py-1.5 text-sm text-text-secondary font-medium focus:border-emerald outline-none transition-colors duration-150 placeholder:text-text-muted w-48 focus:w-64 focus:placeholder:text-transparent"
+              />
+              {searchInput && (
+                <button
+                  onClick={() => setSearchInput('')}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary transition-colors duration-150"
+                  aria-label="Clear search"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
             <Link
               to="/bounties/create"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald text-forge-950 font-semibold text-sm hover:bg-emerald/90 transition-colors duration-150"
@@ -97,7 +121,11 @@ export function BountyGrid() {
           <div className="text-center py-16">
             <p className="text-text-muted text-lg mb-2">No bounties found</p>
             <p className="text-text-muted text-sm">
-              {activeSkill !== 'All' ? `Try a different language filter.` : 'Check back soon for new bounties.'}
+              {debouncedSearch
+                ? `No results for "${debouncedSearch}". Try a different search term.`
+                : activeSkill !== 'All'
+                ? 'Try a different language filter.'
+                : 'Check back soon for new bounties.'}
             </p>
           </div>
         )}
