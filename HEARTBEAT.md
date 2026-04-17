@@ -1,5 +1,5 @@
 # HEARTBEAT.md - Active Tasks Monitor
-Updated: 2026-04-17 12:44 HKT
+Updated: 2026-04-17 15:08 HKT
 
 ## Active Projects
 
@@ -108,7 +108,7 @@ Updated: 2026-04-17 12:44 HKT
 |------|---------|--------|
 | 8001 | FormForge backend | ✅ |
 | 8002 | AI News backend | ✅ (restarted 11:30) |
-| 8003 | LearnAny backend | ✅ (restarted 12:44) |
+| 8003 | LearnAny backend | ✅ (restarted 15:08 - crashing ~hourly) |
 | 8010 | Douyin Game Forge backend | ✅ |
 | 8011 | WorldPredict backend | ✅ (restarted 12:44) |
 | 3000 | Douyin Game Forge frontend | ✅ (only IPv6 localhost) |
