@@ -5,6 +5,7 @@ import { ArrowLeft, GitPullRequest, ExternalLink, Loader2, Check, Copy } from 'l
 import type { Bounty } from '../../types/bounty';
 import { timeAgo, formatCurrency, LANG_COLORS } from '../../lib/utils';
 import { useAuth } from '../../hooks/useAuth';
+import { useToast } from '../../contexts/ToastContext';
 import { SubmissionForm } from './SubmissionForm';
 import { fadeIn } from '../../lib/animations';
 import { CountdownTimer } from './CountdownTimer';
@@ -15,12 +16,14 @@ interface BountyDetailProps {
 
 export function BountyDetail({ bounty }: BountyDetailProps) {
   const { isAuthenticated } = useAuth();
+  const toast = useToast();
   const [submitting, setSubmitting] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const copyLink = () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
       setCopied(true);
+      toast.success('Link copied to clipboard!');
       setTimeout(() => setCopied(false), 2000);
     });
   };

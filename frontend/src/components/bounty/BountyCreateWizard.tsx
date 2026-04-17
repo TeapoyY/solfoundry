@@ -5,6 +5,7 @@ import { Check, ChevronRight, Loader2, Copy } from 'lucide-react';
 import type { BountyCreatePayload } from '../../types/bounty';
 import { createBounty, getTreasuryDepositInfo, verifyEscrowDeposit } from '../../api/bounties';
 import { pageTransition } from '../../lib/animations';
+import { useToast } from '../../contexts/ToastContext';
 
 const PRESET_AMOUNTS = [10, 20, 50, 100, 200];
 const PLATFORM_FEE_PCT = 0.05;
@@ -270,6 +271,7 @@ function Step3({
   onSubmit: () => void;
   creating: boolean;
 }) {
+  const toast = useToast();
   const [verifying, setVerifying] = useState(false);
   const [verifyError, setVerifyError] = useState<string | null>(null);
   const [copiedAddr, setCopiedAddr] = useState(false);
@@ -292,11 +294,14 @@ function Step3({
       const result = await verifyEscrowDeposit({ bounty_id: state.bounty_id, tx_signature: state.tx_signature });
       if (result.verified) {
         onChange('verified', true);
+        toast.success('Escrow deposit verified!');
       } else {
         setVerifyError(result.error ?? 'Verification failed. Check your transaction signature.');
+        toast.error(result.error ?? 'Escrow verification failed.');
       }
     } catch {
       setVerifyError('Verification failed. Try again.');
+      toast.error('Escrow verification failed. Please try again.');
     } finally {
       setVerifying(false);
     }
@@ -380,6 +385,7 @@ function Step3({
 
 export function BountyCreateWizard() {
   const navigate = useNavigate();
+  const toast = useToast();
   const [step, setStep] = useState(0);
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -424,6 +430,7 @@ export function BountyCreateWizard() {
       setStep(2);
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Failed to create bounty. Try again.');
+      toast.error(e instanceof Error ? e.message : 'Failed to create bounty. Please try again.');
     } finally {
       setCreating(false);
     }
@@ -436,8 +443,10 @@ export function BountyCreateWizard() {
     try {
       await verifyEscrowDeposit({ bounty_id: state.bounty_id, tx_signature: state.tx_signature });
       setSuccess(true);
+      toast.success('Bounty published successfully!');
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Failed to publish bounty. Try again.');
+      toast.error(e instanceof Error ? e.message : 'Failed to publish bounty. Please try again.');
     } finally {
       setCreating(false);
     }
