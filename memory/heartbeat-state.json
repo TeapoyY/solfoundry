@@ -16,7 +16,7 @@
         "ai_news_backend": "2026-04-17T11:30:00+08:00 (heartbeat restart - was down since ~06:54)",
         "worldpredict_backend": "2026-04-17T12:44:00+08:00 (heartbeat restart - down since ~06:54)",
         "formforge_backend": "2026-04-16T22:18:00+08:00 (restarted, keeps dying ~hourly)",
-        "learnany_backend": "2026-04-17T12:44:00+08:00 (heartbeat restart - down since ~06:54)"
+        "learnany_backend": "2026-04-17T15:08:00+08:00 (heartbeat restart - crashing ~hourly)"
     },
     "aiTrader": {
         "agent": "OpenClawBot2",
@@ -41,7 +41,7 @@
     "services_status_2026-04-17": {
         "8001_formforge": "OPEN",
         "8002_ai_news": "OPEN (restarted 11:30)",
-        "8003_learnany": "OPEN (restarted 12:44)",
+        "8003_learnany": "OPEN (restarted 15:08 - crashing ~hourly)",
         "8011_worldpredict": "OPEN (restarted 12:44)",
         "8010_douyin_backend": "OPEN",
         "3000_douyin_frontend": "CLOSED (IPv6 localhost only, backend still up on 8010)",
