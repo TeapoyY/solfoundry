@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { PageLayout } from '../components/layout/PageLayout';
 import { PodiumCards } from '../components/leaderboard/PodiumCards';
 import { LeaderboardTable } from '../components/leaderboard/LeaderboardTable';
+import { SkeletonPodiumCard, SkeletonLeaderboardRow, Skeleton } from '../components/Skeleton';
 import { useLeaderboard } from '../hooks/useLeaderboard';
 import type { TimePeriod } from '../types/leaderboard';
 import { fadeIn } from '../lib/animations';
@@ -47,9 +48,27 @@ export function LeaderboardPage() {
 
         {/* Loading */}
         {isLoading && (
-          <div className="flex justify-center py-16">
-            <div className="w-8 h-8 rounded-full border-2 border-emerald border-t-transparent animate-spin" />
-          </div>
+          <>
+            {/* Skeleton podium */}
+            <div className="flex items-end justify-center gap-4 md:gap-6 mb-12">
+              <SkeletonPodiumCard rank={2} />
+              <SkeletonPodiumCard rank={1} />
+              <SkeletonPodiumCard rank={3} />
+            </div>
+            {/* Skeleton table */}
+            <div className="max-w-4xl mx-auto mt-6 rounded-xl border border-border bg-forge-900 overflow-hidden">
+              <div className="flex items-center px-4 py-3 border-b border-border/50">
+                <div className="w-[60px] text-center"><Skeleton className="h-3 w-6 mx-auto" /></div>
+                <div className="flex-1"><Skeleton className="h-3 w-20" /></div>
+                <div className="w-[100px] text-center"><Skeleton className="h-3 w-12 mx-auto" /></div>
+                <div className="w-[120px] text-right"><Skeleton className="h-3 w-16 mx-auto" /></div>
+                <div className="w-[80px] text-center hidden sm:block"><Skeleton className="h-3 w-10 mx-auto" /></div>
+              </div>
+              {Array.from({ length: 8 }).map((_, i) => (
+                <SkeletonLeaderboardRow key={i} />
+              ))}
+            </div>
+          </>
         )}
 
         {/* Error */}
