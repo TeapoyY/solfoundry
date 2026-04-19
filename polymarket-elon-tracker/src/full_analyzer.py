@@ -28,6 +28,8 @@ DAILY_RATE = 30.0  # tweets/day
 # ── Market Definitions ─────────────────────────────────────────────
 # xtrack.polymarket.com is BLOCKED from this machine.
 # All confirmed counts sourced from Polymarket TWEET COUNT field (browser relay).
+# Live counts are fetched by fetch_live_counts.py and stored in live_xtrack.json.
+# Analyzer loads live counts from there; falls back to hardcoded values if unavailable.
 MARKETS = [
     {
         "id": "apr14-21",
@@ -104,6 +106,27 @@ MARKETS = [
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 PROJECT_ROOT = Path(__file__).parent.parent
+
+
+def load_live_xtrack() -> dict:
+    """Load live xtrack counts from fetch_live_counts.py output."""
+    live_path = DATA_DIR / "live_xtrack.json"
+    if live_path.exists() and live_path.stat().st_size > 0:
+        try:
+            data = json.loads(live_path.read_text("utf-8"))
+            return {k: v.get("xtrack_confirmed") for k, v in data.items()}
+        except Exception:
+            pass
+    return {}
+
+
+def get_market_confirmed(mkt: dict) -> int:
+    """Get confirmed count: live from Polymarket > hardcoded fallback."""
+    live = load_live_xtrack()
+    cid = mkt["id"]
+    if cid in live and live[cid] is not None:
+        return live[cid]
+    return mkt.get("xtrack_confirmed", 0) or 0
 
 
 def parse_ts(s: str) -> Optional[datetime]:
@@ -237,10 +260,13 @@ def bucket_probability(bucket_lo: int, bucket_hi: int, confirmed: int, days: flo
 
 
 def analyze_market(mkt: dict, now_utc: datetime) -> dict:
-    """Full analysis for one market with multi-outcome buckets."""
+    """Full analysis for one market with multi-outcome buckets.
+    Uses live xtrack counts from live_xtrack.json if available,
+    falls back to hardcoded mkt['xtrack_confirmed'].
+    """
     ws, we = mkt["ws"], mkt["we"]
     target = mkt["target"]
-    confirmed = mkt.get("xtrack_confirmed", 0) or 0
+    confirmed = get_market_confirmed(mkt)  # live count > hardcoded fallback
     yes_price = mkt.get("pm_yes_price", 0.50)
     no_price = mkt.get("pm_no_price", 0.50)
 
