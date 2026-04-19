@@ -292,15 +292,6 @@ def analyze_market(mkt: dict, now_utc: datetime) -> dict:
     #           if confirmed ALREADY in a bucket → that bucket = 1.0 (market resolved)
     buckets = mkt.get("outcome_buckets", [])
 
-    # Check if market is already resolved (confirmed in a final bucket range)
-    already_resolved = False
-    resolved_bucket = None
-    for b in buckets:
-        if b["lo"] <= confirmed <= b["hi"]:
-            already_resolved = True
-            resolved_bucket = b["label"]
-            break
-
     bucket_probs = []
 
     for b in buckets:
@@ -327,6 +318,90 @@ def analyze_market(mkt: dict, now_utc: datetime) -> dict:
             "edge_pct": edge_pct,
             "action": side,
         })
+
+    # ── Combo analysis ────────────────────────────────────────────────
+    # Polymarket range markets: you can buy MULTIPLE buckets.
+    # If you buy buckets B1, B2, ... you win if final count falls in ANY of them.
+    # Cost = sum of individual bucket prices.
+    # EV = P(in ANY bucket) * 1.0 - cost = sum(P_i) - sum(price_i)
+    # Edge per combo = sum(P_i) - sum(price_i)
+    # Kelly per combo = kelly(sum(price_i), sum(P_i)) -- treat as single binary bet
+    combos = []
+    n = len(bucket_probs)
+
+    # Generate all contiguous range combinations (1 bucket, 2 adjacent, ..., all)
+    for combo_size in range(1, n + 1):
+        for start in range(n):
+            end = start + combo_size
+            if end > n:
+                break
+            combo = bucket_probs[start:end]
+            if not combo:
+                continue
+
+            # Skip combos where any bucket has prob ≈ 0 (already impossible)
+            if any(b["prob"] < 0.001 for b in combo):
+                continue
+
+            # Skip combos where any bucket has prob ≈ 1 (already resolved)
+            if any(abs(b["prob"] - 1.0) < 0.001 for b in combo):
+                continue
+
+            combo_prob = sum(b["prob"] for b in combo)
+            combo_cost = sum(b["pm_price"] for b in combo)
+            combo_edge = combo_prob - combo_cost
+
+            # Labels for the combo
+            labels = [b["label"] for b in combo]
+            if combo_size == 1:
+                combo_label = labels[0]
+            elif combo_size == 2:
+                combo_label = f"{labels[0]} + {labels[1]}"
+            else:
+                combo_label = f"{labels[0]}..{labels[-1]} ({combo_size} buckets)"
+
+            # Expected value per unit bet
+            ev_per_unit = combo_prob - combo_cost
+
+            # Kelly: treat cost as "price" of the combo bet
+            # If you bet $X total: cost = X*combo_cost, you win X if success
+            # Kelly fraction = kelly(combo_cost, combo_prob)
+            kelly_combo = kelly(combo_cost, combo_prob)
+            kelly_quarter = kelly_combo * 0.25
+
+            # Adjacent buckets only: meaningful combo
+            # Non-adjacent combos are arbitrary — skip unless all buckets
+            is_adjacent = all(
+                combo[i]["hi"] == combo[i+1]["lo"] - 1 or
+                combo[i]["hi"] + 1 == combo[i+1]["lo"]
+                for i in range(len(combo) - 1)
+            )
+            is_full = (combo_size == n)
+
+            if not is_adjacent and not is_full:
+                continue
+
+            action = "BUY" if combo_edge > 0.05 else ("SELL" if combo_edge < -0.05 else "HOLD")
+
+            combos.append({
+                "combo_label": combo_label,
+                "buckets": labels,
+                "combo_size": combo_size,
+                "combo_prob": round(combo_prob, 4),
+                "combo_prob_pct": f"{combo_prob*100:.1f}%",
+                "combo_cost": round(combo_cost, 4),
+                "combo_cost_pct": f"{combo_cost*100:.1f}%",
+                "combo_edge": round(combo_edge, 4),
+                "combo_edge_pct": f"{combo_edge*100:+.1f}%",
+                "ev_per_unit": round(ev_per_unit, 4),
+                "kelly_full": round(kelly_combo, 4),
+                "kelly_quarter": round(kelly_quarter, 4),
+                "action": action,
+                "is_full": is_full,
+            })
+
+    # Sort by edge descending
+    combos.sort(key=lambda x: x["combo_edge"], reverse=True)
 
     # ── YES/NO binary probability ─────────────────────────────────────
     # P(YES) = P(final count >= target) = sum of all buckets where lo >= target
@@ -400,6 +475,8 @@ def analyze_market(mkt: dict, now_utc: datetime) -> dict:
         "mc": mc,
         # Per-bucket analysis
         "buckets": bucket_probs,
+        # Combo analysis (adjacent bucket combinations)
+        "combos": combos,
         # Velocity from our tweets
         "velocity": velocity,
         # Verdict
@@ -448,6 +525,19 @@ def print_report(results: list):
         for b in r["buckets"]:
             if b["prob"] > 0.001 or b["pm_price"] > 0.001:
                 print(f"    {b['label']:>12}  {b['prob_pct']:>8}  {b['pm_price']:>9.0%}  {b['edge_pct']:>8}  {b['action']:>6}")
+
+        # Combo strategies
+        combos = r.get("combos", [])
+        if combos:
+            print(f"\n  BUCKET COMBO STRATEGIES (buy multiple buckets = win if count in ANY bucket):")
+            print(f"    {'Combo':>22}  {'P(ours)':>8}  {'Cost':>6}  {'Edge':>8}  {'Kelly':>7}  {'Action':>6}")
+            print(f"    {'-'*22}  {'-'*8}  {'-'*6}  {'-'*8}  {'-'*7}  {'-'*6}")
+            for c in combos[:10]:  # Top 10 combos
+                if c["combo_edge"] > 0.001 or c["action"] == "BUY":
+                    full_marker = " [ALL]" if c.get("is_full") else ""
+                    print(f"    {c['combo_label'][:22]:>22}  {c['combo_prob_pct']:>8}  "
+                          f"{c['combo_cost_pct']:>6}  {c['combo_edge_pct']:>8}  "
+                          f"{c['kelly_quarter']*100:>6.1f}%  {c['action']:>6}{full_marker}")
 
         # MC scenarios
         mc = r.get("mc", {})
