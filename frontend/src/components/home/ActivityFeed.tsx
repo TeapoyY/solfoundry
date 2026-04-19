@@ -65,12 +65,12 @@ function EventItem({ event }: { event: ActivityEvent }) {
           <span className="font-mono text-xs text-text-muted">{event.username[0]?.toUpperCase()}</span>
         </div>
       )}
-      <p className="text-sm text-text-secondary flex-1 truncate">
-        <span className="font-medium text-text-primary">{event.username}</span>
+      <p className="text-sm text-text-secondary flex-1 min-w-0">
+        <span className="font-medium text-text-primary truncate">{event.username}</span>
         {' '}{getActionText(event.type)}{' '}
-        <span className={`font-mono ${isMagenta ? 'text-magenta' : 'text-emerald'}`}>{event.detail}</span>
+        <span className={`font-mono ${isMagenta ? 'text-magenta' : 'text-emerald'} truncate`}>{event.detail}</span>
       </p>
-      <span className="font-mono text-xs text-text-muted flex-shrink-0">{timeAgo(event.timestamp)}</span>
+      <span className="font-mono text-xs text-text-muted flex-shrink-0 max-w-16 truncate">{timeAgo(event.timestamp)}</span>
     </div>
   );
 }
