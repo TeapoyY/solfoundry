@@ -208,3 +208,14 @@ python "C:\Users\Administrator\.openclaw\workspace\polymarket-elon-tracker\fetch
 - Script: scripts/bounty_hunter.py
 - fetches from bountyhub.dev via browser relay
 - Claude Code implements + review loop -> PR
+
+
+## Updated 2026-04-20 00:23 HKT
+### Polymarket Tracker v3 (run_hourly.py)
+- Live prices via fetch_live_prices.py + browser relay
+- xtrack变动告警: xtrack_snapshot.json对比检测
+- TOP5 bucket combos per market (by Edge)
+- fetch_live_prices.py, xtrack_snapshot.json
+### BountyHub Skill
+- Skill: ~/.openclaw/skills/bounty-hunt/
+- Cron: bounty-hub-hunter (every 2h)
