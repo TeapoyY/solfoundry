@@ -70,3 +70,13 @@
 
 ## ClawColony
 - pendingVotes: 1; enrolledProposals: [539, 540]; lastVote: #541 (yes, 2026-03-19)
+
+
+## Polymarket Tracker Updates (2026-04-20)
+- run_hourly.py v3: live prices via browser relay + xtrack change alerts + TOP5 bucket combos
+- fetch_live_prices.py: navigates Polymarket pages to extract YES/NO prices
+- xtrack_snapshot.json: tracks xtrack counts between runs for change detection
+- full_analyzer.py: norm_cdf bug fixed, load_live_prices/snapshot functions added
+- Browser relay note: stuck on x.com - live prices暂时用hardcoded (88%/85%/85%)
+- Kelly: apr14-21 YES=25%, apr17-24 YES=25%, may2026 YES=25%
+- xtrack confirmed: apr14-21=167, apr17-24=68, may2026=0
