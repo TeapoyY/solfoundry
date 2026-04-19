@@ -38,7 +38,7 @@ MARKETS = [
         "ws": "2026-04-14T00:00:00Z",
         "we": "2026-04-21T23:59:59Z",
         # Live from Polymarket (2026-04-19 ~11:00 HKT)
-        "xtrack_confirmed": 164,
+        "xtrack_confirmed": 184,      # UPDATED 2026-04-19 15:36 HKT
         "pm_yes_price": 0.88,
         "pm_no_price": 0.12,
         "pm_vol": 6589397,
@@ -47,11 +47,11 @@ MARKETS = [
         "outcome_buckets": [
             {"lo": 0,    "hi": 189, "label": "<190",    "price": 0.12},
             {"lo": 190,  "hi": 219, "label": "190-219",  "price": 0.05},
-            {"lo": 220,  "hi": 239, "label": "220-239",  "price": 0.12},
-            {"lo": 240,  "hi": 259, "label": "240-259",  "price": 0.27},
-            {"lo": 260,  "hi": 279, "label": "260-279",  "price": 0.30},
-            {"lo": 280,  "hi": 299, "label": "280-299",  "price": 0.19},
-            {"lo": 300,  "hi": 499, "label": "300-499",  "price": 0.05},
+            {"lo": 220,  "hi": 239, "label": "220-239",  "price": 0.05},
+            {"lo": 240,  "hi": 259, "label": "240-259",  "price": 0.11},
+            {"lo": 260,  "hi": 279, "label": "260-279",  "price": 0.24},
+            {"lo": 280,  "hi": 299, "label": "280-299",  "price": 0.23},
+            {"lo": 300,  "hi": 499, "label": "300-499",  "price": 0.20},
             {"lo": 500,  "hi": 9999,"label": ">=500",    "price": 0.00},
         ],
     },
@@ -61,20 +61,20 @@ MARKETS = [
         "target": 200,
         "ws": "2026-04-17T00:00:00Z",
         "we": "2026-04-24T23:59:59Z",
-        # Live from Polymarket (2026-04-19 ~11:03 HKT)
-        "xtrack_confirmed": 55,
-        "pm_yes_price": 0.79,
-        "pm_no_price": 0.21,
+        # UPDATED from Polymarket snapshot (2026-04-19 15:36 HKT)
+        "xtrack_confirmed": 68,
+        "pm_yes_price": 0.85,
+        "pm_no_price": 0.15,
         "pm_vol": None,
         "outcome_buckets": [
-            {"lo": 0,    "hi": 199, "label": "<200",     "price": 0.21},
-            {"lo": 200,  "hi": 219, "label": "200-219",  "price": 0.10},
-            {"lo": 220,  "hi": 239, "label": "220-239",  "price": 0.10},
-            {"lo": 240,  "hi": 259, "label": "240-259",  "price": 0.13},
-            {"lo": 260,  "hi": 279, "label": "260-279",  "price": 0.21},
-            {"lo": 280,  "hi": 299, "label": "280-299",  "price": 0.20},
-            {"lo": 300,  "hi": 499, "label": "300-499",  "price": 0.14},
-            {"lo": 500,  "hi": 9999,"label": ">=500",    "price": 0.01},
+            {"lo": 0,    "hi": 199, "label": "<200",     "price": 0.15},
+            {"lo": 200,  "hi": 219, "label": "200-219",  "price": 0.19},
+            {"lo": 220,  "hi": 239, "label": "220-239",  "price": 0.16},
+            {"lo": 240,  "hi": 259, "label": "240-259",  "price": 0.18},
+            {"lo": 260,  "hi": 279, "label": "260-279",  "price": 0.19},
+            {"lo": 280,  "hi": 299, "label": "280-299",  "price": 0.16},
+            {"lo": 300,  "hi": 319, "label": "300-319",  "price": 0.10},
+            {"lo": 320,  "hi": 9999,"label": ">=320",    "price": 0.02},
         ],
     },
     {
@@ -85,19 +85,19 @@ MARKETS = [
         "we": "2026-05-31T23:59:59Z",
         # May hasn't started — xtrack confirmed = 0
         "xtrack_confirmed": 0,
-        "pm_yes_price": 0.37,
-        "pm_no_price": 0.63,
+        "pm_yes_price": 0.85,       # UPDATED 2026-04-19 15:36 HKT
+        "pm_no_price": 0.15,
         "pm_vol": None,
         # May 2026 forecast buckets (velocity-based projection)
         # Based on ~30 tweets/day rate: May should reach ~930 tweets
         "outcome_buckets": [
-            {"lo": 0,    "hi": 799, "label": "<800",     "price": 0.63},
-            {"lo": 800,  "hi": 899, "label": "800-899",  "price": 0.08},
-            {"lo": 900,  "hi": 999, "label": "900-999",  "price": 0.10},
-            {"lo": 1000, "hi": 1099,"label": "1000-1099","price": 0.08},
-            {"lo": 1100, "hi": 1199,"label": "1100-1199","price": 0.05},
-            {"lo": 1200, "hi": 1299,"label": "1200-1299","price": 0.04},
-            {"lo": 1300, "hi": 9999,"label": ">=1300",  "price": 0.02},
+            {"lo": 0,    "hi": 799, "label": "<800",     "price": 0.15},
+            {"lo": 800,  "hi": 899, "label": "800-899",  "price": 0.13},
+            {"lo": 900,  "hi": 999, "label": "900-999",  "price": 0.16},
+            {"lo": 1000, "hi": 1099,"label": "1000-1099","price": 0.13},
+            {"lo": 1100, "hi": 1199,"label": "1100-1199","price": 0.10},
+            {"lo": 1200, "hi": 1299,"label": "1200-1299","price": 0.09},
+            {"lo": 1300, "hi": 9999,"label": ">=1300",  "price": 0.07},
         ],
         # For May: this is a FORECAST market (hasn't started yet)
         "is_forecast": True,
