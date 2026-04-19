@@ -1,5 +1,8 @@
+/** Possible lifecycle statuses for a bounty on the platform. */
 export type BountyStatus = 'open' | 'in_review' | 'completed' | 'cancelled' | 'funded';
+/** Tier levels that determine reward magnitude and visibility. */
 export type BountyTier = 'T1' | 'T2' | 'T3';
+/** Supported reward token symbols. */
 export type RewardToken = 'USDC' | 'FNDRY';
 
 export interface Bounty {
