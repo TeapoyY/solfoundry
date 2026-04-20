@@ -173,15 +173,46 @@ def load_live_prices() -> dict:
     prices_path = DATA_DIR / 'live_prices.json'
     if prices_path.exists() and prices_path.stat().st_size > 0:
         try:
-            data = json.loads(prices_path.read_text('utf-8'))
-            result = {}
-            for k, v in data.items():
-                if isinstance(v, dict) and v.get('yes') is not None:
-                    result[k] = {'yes': v['yes'], 'no': v.get('no')}
-            return result
+            return json.loads(prices_path.read_text('utf-8'))
         except Exception:
             pass
     return {}
+
+
+def get_bucket_price_from_live(market_id: str, lo: int, hi: int, label: str) -> float:
+    """
+    Look up a bucket's live YES price from live_prices.json.
+    Returns None if not found (caller should use hardcoded fallback).
+    """
+    live = load_live_prices()
+    mdata = live.get(market_id, {})
+    bp = mdata.get('bucket_prices', {})
+    if not bp:
+        return None
+
+    url_slugs = {
+        'apr14-21': 'elon-musk-of-tweets-april-14-april-21',
+        'apr17-24': 'elon-musk-of-tweets-april-17-april-24',
+        'may2026':  'elon-musk-of-tweets-may-2026',
+    }
+    mslug = url_slugs.get(market_id, '')
+    if not mslug:
+        return None
+
+    # Construct the slug for this bucket
+    import re as _re
+    if label.startswith('<'):
+        m = _re.search(r'(\d+)', label)
+        hi_val = m.group(1) if m else None
+        key = f'{mslug}-0-{hi_val}' if hi_val else None
+    elif label.startswith('>='):
+        key = f'{mslug}-2000-plus'
+    else:
+        key = f'{mslug}-{lo}-{hi}'
+
+    if key and key in bp:
+        return bp[key].get('yes')
+    return None
 
 
 def get_market_confirmed(mkt: dict) -> int:
@@ -344,6 +375,10 @@ def analyze_market(mkt: dict, now_utc: datetime) -> dict:
     confirmed = get_market_confirmed(mkt)  # live count > hardcoded fallback
     yes_price = mkt.get("pm_yes_price", 0.50)
     no_price = mkt.get("pm_no_price", 0.50)
+    live_prices = load_live_prices()
+    if mkt["id"] in live_prices and live_prices[mkt["id"]].get("yes") is not None:
+        yes_price = live_prices[mkt["id"]].get("yes", yes_price)
+        no_price = live_prices[mkt["id"]].get("no", no_price)
 
     we_dt = parse_ts(we)
     days_rem = max((we_dt - now_utc).total_seconds() / 86400.0, 0) if we_dt else 0
@@ -379,8 +414,9 @@ def analyze_market(mkt: dict, now_utc: datetime) -> dict:
         lo, hi = b["lo"], b["hi"]
         prob = bucket_probability(lo, hi, confirmed, days_rem)
 
-        # Polymarket implied price
-        pm_price = b.get("price", 0.0)
+        # Polymarket implied price — try live price first, fallback to hardcoded
+        live_pm_price = get_bucket_price_from_live(mkt['id'], lo, hi, b.get('label', '') or '')
+        pm_price = live_pm_price if live_pm_price is not None else b.get("price", 0.0)
 
         # Edge: our probability vs Polymarket price
         edge = prob - pm_price

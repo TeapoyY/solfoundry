@@ -1,20 +1,659 @@
 {
   "apr14-21": {
-    "yes": 0.0005,
-    "no": 0.9995,
-    "source": "html_fallback",
-    "fetched_at": 1776694875.94109
+    "yes": null,
+    "no": null,
+    "tweet_count": 139,
+    "bucket_prices": {
+      "elon-musk-of-tweets-april-14-april-21-0-19": {
+        "yes": 0.0,
+        "no": 1.0,
+        "question": "Will Elon Musk post 0-19 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-20-39": {
+        "yes": 0.0,
+        "no": 1.0,
+        "question": "Will Elon Musk post 20-39 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-40-59": {
+        "yes": 0.0,
+        "no": 1.0,
+        "question": "Will Elon Musk post 40-59 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-60-79": {
+        "yes": 0.0,
+        "no": 1.0,
+        "question": "Will Elon Musk post 60-79 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-80-99": {
+        "yes": 0.0,
+        "no": 1.0,
+        "question": "Will Elon Musk post 80-99 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-100-119": {
+        "yes": 0.0,
+        "no": 1.0,
+        "question": "Will Elon Musk post 100-119 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-120-139": {
+        "yes": 0.0,
+        "no": 1.0,
+        "question": "Will Elon Musk post 120-139 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-140-159": {
+        "yes": 0.0,
+        "no": 1.0,
+        "question": "Will Elon Musk post 140-159 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-160-179": {
+        "yes": 0.0,
+        "no": 1.0,
+        "question": "Will Elon Musk post 160-179 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-180-199": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 180-199 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-200-219": {
+        "yes": 0.0605,
+        "no": 0.9395,
+        "question": "Will Elon Musk post 200-219 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-220-239": {
+        "yes": 0.495,
+        "no": 0.505,
+        "question": "Will Elon Musk post 220-239 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-240-259": {
+        "yes": 0.345,
+        "no": 0.655,
+        "question": "Will Elon Musk post 240-259 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-260-279": {
+        "yes": 0.105,
+        "no": 0.895,
+        "question": "Will Elon Musk post 260-279 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-280-299": {
+        "yes": 0.0235,
+        "no": 0.9765,
+        "question": "Will Elon Musk post 280-299 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-300-319": {
+        "yes": 0.0075,
+        "no": 0.9925,
+        "question": "Will Elon Musk post 300-319 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-320-339": {
+        "yes": 0.0025,
+        "no": 0.9975,
+        "question": "Will Elon Musk post 320-339 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-340-359": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 340-359 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-360-379": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 360-379 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-380-399": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 380-399 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-400-419": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 400-419 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-420-439": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 420-439 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-440-459": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 440-459 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-460-479": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 460-479 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-480-499": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 480-499 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-500-519": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 500-519 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-520-539": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 520-539 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-540-559": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 540-559 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-560-579": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 560-579 tweets from April 14 to April 21, 2026?"
+      },
+      "elon-musk-of-tweets-april-14-april-21-580plus": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 580+ tweets from April 14 to April 21, 2026?"
+      }
+    },
+    "source": "polymarket_html",
+    "fetched_at": 1776697088.2656739
   },
   "apr17-24": {
-    "yes": 0.0005,
-    "no": 0.9995,
-    "source": "html_fallback",
-    "fetched_at": 1776694883.5787003
+    "yes": null,
+    "no": null,
+    "tweet_count": 93,
+    "bucket_prices": {
+      "elon-musk-of-tweets-april-17-april-24-80-99": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 80-99 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-100-119": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 100-119 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-120-139": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 120-139 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-140-159": {
+        "yes": 0.0035,
+        "no": 0.9965,
+        "question": "Will Elon Musk post 140-159 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-0-19": {
+        "yes": 0.0,
+        "no": 1.0,
+        "question": "Will Elon Musk post 0-19 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-20-39": {
+        "yes": 0.0,
+        "no": 1.0,
+        "question": "Will Elon Musk post 20-39 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-40-59": {
+        "yes": 0.0,
+        "no": 1.0,
+        "question": "Will Elon Musk post 40-59 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-60-79": {
+        "yes": 0.0,
+        "no": 1.0,
+        "question": "Will Elon Musk post 60-79 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-160-179": {
+        "yes": 0.0165,
+        "no": 0.9835,
+        "question": "Will Elon Musk post 160-179 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-180-199": {
+        "yes": 0.0575,
+        "no": 0.9425,
+        "question": "Will Elon Musk post 180-199 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-200-219": {
+        "yes": 0.1355,
+        "no": 0.8645,
+        "question": "Will Elon Musk post 200-219 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-220-239": {
+        "yes": 0.205,
+        "no": 0.795,
+        "question": "Will Elon Musk post 220-239 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-240-259": {
+        "yes": 0.185,
+        "no": 0.815,
+        "question": "Will Elon Musk post 240-259 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-260-279": {
+        "yes": 0.16,
+        "no": 0.84,
+        "question": "Will Elon Musk post 260-279 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-280-299": {
+        "yes": 0.115,
+        "no": 0.885,
+        "question": "Will Elon Musk post 280-299 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-300-319": {
+        "yes": 0.055,
+        "no": 0.945,
+        "question": "Will Elon Musk post 300-319 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-320-339": {
+        "yes": 0.0275,
+        "no": 0.9725,
+        "question": "Will Elon Musk post 320-339 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-340-359": {
+        "yes": 0.0195,
+        "no": 0.9805,
+        "question": "Will Elon Musk post 340-359 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-360-379": {
+        "yes": 0.0095,
+        "no": 0.9905,
+        "question": "Will Elon Musk post 360-379 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-380-399": {
+        "yes": 0.0075,
+        "no": 0.9925,
+        "question": "Will Elon Musk post 380-399 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-400-419": {
+        "yes": 0.0045,
+        "no": 0.9955,
+        "question": "Will Elon Musk post 400-419 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-420-439": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 420-439 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-440-459": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 440-459 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-460-479": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 460-479 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-480-499": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 480-499 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-500-519": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 500-519 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-520-539": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 520-539 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-540-559": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 540-559 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-560-579": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 560-579 tweets from April 17 to April 24, 2026?"
+      },
+      "elon-musk-of-tweets-april-17-april-24-580plus": {
+        "yes": 0.0005,
+        "no": 0.9995,
+        "question": "Will Elon Musk post 580+ tweets from April 17 to April 24, 2026?"
+      }
+    },
+    "source": "polymarket_html",
+    "fetched_at": 1776697088.7010367
   },
   "may2026": {
-    "yes": 0.0015,
-    "no": 0.9985,
-    "source": "html_fallback",
-    "fetched_at": 1776694894.98321
+    "yes": null,
+    "no": null,
+    "tweet_count": 0,
+    "bucket_prices": {
+      "elon-musk-of-tweets-may-2026-0-19": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 0-19 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-20-39": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 20-39 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-40-59": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 40-59 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-60-79": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 60-79 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-80-99": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 80-99 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-100-119": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 100-119 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-120-139": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 120-139 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-140-159": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 140-159 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-160-179": {
+        "yes": 0.0025,
+        "no": 0.9975,
+        "question": "Will Elon Musk post 160-179 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-180-199": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 180-199 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-200-219": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 200-219 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-220-239": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 220-239 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-240-259": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 240-259 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-260-279": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 260-279 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-280-299": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 280-299 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-300-319": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 300-319 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-320-339": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 320-339 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-340-359": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 340-359 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-360-379": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 360-379 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-380-399": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 380-399 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-400-419": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 400-419 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-420-439": {
+        "yes": 0.002,
+        "no": 0.998,
+        "question": "Will Elon Musk post 420-439 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-440-459": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 440-459 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-460-479": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 460-479 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-480-499": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 480-499 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-500-519": {
+        "yes": 0.002,
+        "no": 0.998,
+        "question": "Will Elon Musk post 500-519 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-520-539": {
+        "yes": 0.002,
+        "no": 0.998,
+        "question": "Will Elon Musk post 520-539 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-540-559": {
+        "yes": 0.0025,
+        "no": 0.9975,
+        "question": "Will Elon Musk post 540-559 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-560-579": {
+        "yes": 0.0025,
+        "no": 0.9975,
+        "question": "Will Elon Musk post 560-579 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-580-599": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 580-599 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-600-619": {
+        "yes": 0.0035,
+        "no": 0.9965,
+        "question": "Will Elon Musk post 600-619 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-620-639": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 620-639 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-640-659": {
+        "yes": 0.004,
+        "no": 0.996,
+        "question": "Will Elon Musk post 640-659 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-660-679": {
+        "yes": 0.0025,
+        "no": 0.9975,
+        "question": "Will Elon Musk post 660-679 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-680-699": {
+        "yes": 0.0015,
+        "no": 0.9985,
+        "question": "Will Elon Musk post 680-699 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-700-719": {
+        "yes": 0.004,
+        "no": 0.996,
+        "question": "Will Elon Musk post 700-719 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-720-739": {
+        "yes": 0.003,
+        "no": 0.997,
+        "question": "Will Elon Musk post 720-739 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-740-759": {
+        "yes": 0.0035,
+        "no": 0.9965,
+        "question": "Will Elon Musk post 740-759 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-760-779": {
+        "yes": 0.0025,
+        "no": 0.9975,
+        "question": "Will Elon Musk post 760-779 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-780-799": {
+        "yes": 0.0045,
+        "no": 0.9955,
+        "question": "Will Elon Musk post 780-799 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-800-839": {
+        "yes": 0.0035,
+        "no": 0.9965,
+        "question": "Will Elon Musk post 800-839 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-840-879": {
+        "yes": 0.004,
+        "no": 0.996,
+        "question": "Will Elon Musk post 840-879 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-880-919": {
+        "yes": 0.007,
+        "no": 0.993,
+        "question": "Will Elon Musk post 880-919 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-920-959": {
+        "yes": 0.004,
+        "no": 0.996,
+        "question": "Will Elon Musk post 920-959 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-960-999": {
+        "yes": 0.014,
+        "no": 0.986,
+        "question": "Will Elon Musk post 960-999 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1000-1039": {
+        "yes": 0.016,
+        "no": 0.984,
+        "question": "Will Elon Musk post 1000-1039 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1040-1079": {
+        "yes": 0.0275,
+        "no": 0.9725,
+        "question": "Will Elon Musk post 1040-1079 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1080-1119": {
+        "yes": 0.0365,
+        "no": 0.9635,
+        "question": "Will Elon Musk post 1080-1119 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1120-1159": {
+        "yes": 0.043,
+        "no": 0.957,
+        "question": "Will Elon Musk post 1120-1159 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1160-1199": {
+        "yes": 0.127,
+        "no": 0.873,
+        "question": "Will Elon Musk post 1160-1199 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1200-1239": {
+        "yes": 0.094,
+        "no": 0.906,
+        "question": "Will Elon Musk post 1200-1239 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1240-1279": {
+        "yes": 0.115,
+        "no": 0.885,
+        "question": "Will Elon Musk post 1240-1279 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1280-1319": {
+        "yes": 0.085,
+        "no": 0.915,
+        "question": "Will Elon Musk post 1280-1319 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1320-1359": {
+        "yes": 0.075,
+        "no": 0.925,
+        "question": "Will Elon Musk post 1320-1359 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1360-1399": {
+        "yes": 0.068,
+        "no": 0.932,
+        "question": "Will Elon Musk post 1360-1399 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1400-1439": {
+        "yes": 0.0435,
+        "no": 0.9565,
+        "question": "Will Elon Musk post 1400-1439 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1440-1479": {
+        "yes": 0.052,
+        "no": 0.948,
+        "question": "Will Elon Musk post 1440-1479 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1480-1519": {
+        "yes": 0.0475,
+        "no": 0.9525,
+        "question": "Will Elon Musk post 1480-1519 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1520-1559": {
+        "yes": 0.037,
+        "no": 0.963,
+        "question": "Will Elon Musk post 1520-1559 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1560-1599": {
+        "yes": 0.032,
+        "no": 0.968,
+        "question": "Will Elon Musk post 1560-1599 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1600-1679": {
+        "yes": 0.019,
+        "no": 0.981,
+        "question": "Will Elon Musk post 1600-1679 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1680-1759": {
+        "yes": 0.0175,
+        "no": 0.9825,
+        "question": "Will Elon Musk post 1680-1759 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1760-1839": {
+        "yes": 0.0135,
+        "no": 0.9865,
+        "question": "Will Elon Musk post 1760-1839 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1840-1919": {
+        "yes": 0.0085,
+        "no": 0.9915,
+        "question": "Will Elon Musk post 1840-1919 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-1920-1999": {
+        "yes": 0.007,
+        "no": 0.993,
+        "question": "Will Elon Musk post 1920-1999 tweets in May 2026?"
+      },
+      "elon-musk-of-tweets-may-2026-2000plus": {
+        "yes": 0.008,
+        "no": 0.992,
+        "question": "Will Elon Musk post 2000+ tweets in May 2026?"
+      }
+    },
+    "source": "polymarket_html",
+    "fetched_at": 1776697089.2436056
   }
 }
