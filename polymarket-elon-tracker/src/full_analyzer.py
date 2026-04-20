@@ -47,14 +47,16 @@ MARKETS = [
         # Outcome buckets (range → Polymarket implied price)
         # These represent probability distribution of final count
         "outcome_buckets": [
-            {"lo": 0,    "hi": 189, "label": "<190",    "price": 0.12},
-            {"lo": 190,  "hi": 219, "label": "190-219",  "price": 0.05},
-            {"lo": 220,  "hi": 239, "label": "220-239",  "price": 0.05},
-            {"lo": 240,  "hi": 259, "label": "240-259",  "price": 0.11},
-            {"lo": 260,  "hi": 279, "label": "260-279",  "price": 0.24},
-            {"lo": 280,  "hi": 299, "label": "280-299",  "price": 0.23},
-            {"lo": 300,  "hi": 499, "label": "300-499",  "price": 0.20},
-            {"lo": 500,  "hi": 9999,"label": ">=500",    "price": 0.00},
+            {"lo": 0,    "hi": 179, "label": "<180",    "price": 0.001},
+            {"lo": 180,  "hi": 199, "label": "180-199",  "price": 0.001},
+            {"lo": 200,  "hi": 219, "label": "200-219",  "price": 0.194},
+            {"lo": 220,  "hi": 239, "label": "220-239",  "price": 0.57},
+            {"lo": 240,  "hi": 259, "label": "240-259",  "price": 0.19},
+            {"lo": 260,  "hi": 279, "label": "260-279",  "price": 0.05},
+            {"lo": 280,  "hi": 299, "label": "280-299",  "price": 0.015},
+            {"lo": 300,  "hi": 319, "label": "300-319",  "price": 0.006},
+            {"lo": 320,  "hi": 339, "label": "320-339",  "price": 0.002},
+            {"lo": 340,  "hi": 9999,"label": ">=340",    "price": 0.001},
         ],
     },
     {
@@ -69,14 +71,20 @@ MARKETS = [
         "pm_no_price": 0.15,
         "pm_vol": None,
         "outcome_buckets": [
-            {"lo": 0,    "hi": 199, "label": "<200",     "price": 0.15},
-            {"lo": 200,  "hi": 219, "label": "200-219",  "price": 0.19},
-            {"lo": 220,  "hi": 239, "label": "220-239",  "price": 0.16},
-            {"lo": 240,  "hi": 259, "label": "240-259",  "price": 0.18},
-            {"lo": 260,  "hi": 279, "label": "260-279",  "price": 0.19},
-            {"lo": 280,  "hi": 299, "label": "280-299",  "price": 0.16},
-            {"lo": 300,  "hi": 319, "label": "300-319",  "price": 0.10},
-            {"lo": 320,  "hi": 9999,"label": ">=320",    "price": 0.02},
+            {"lo": 0,    "hi": 99,  "label": "<100",     "price": 0.001},
+            {"lo": 100,  "hi": 119, "label": "100-119",  "price": 0.001},
+            {"lo": 120,  "hi": 139, "label": "120-139",  "price": 0.001},
+            {"lo": 140,  "hi": 159, "label": "140-159",  "price": 0.009},
+            {"lo": 160,  "hi": 179, "label": "160-179",  "price": 0.014},
+            {"lo": 180,  "hi": 199, "label": "180-199",  "price": 0.059},
+            {"lo": 200,  "hi": 219, "label": "200-219",  "price": 0.169},
+            {"lo": 220,  "hi": 239, "label": "220-239",  "price": 0.21},
+            {"lo": 240,  "hi": 259, "label": "240-259",  "price": 0.19},
+            {"lo": 260,  "hi": 279, "label": "260-279",  "price": 0.15},
+            {"lo": 280,  "hi": 299, "label": "280-299",  "price": 0.10},
+            {"lo": 300,  "hi": 319, "label": "300-319",  "price": 0.06},
+            {"lo": 320,  "hi": 339, "label": "320-339",  "price": 0.026},
+            {"lo": 340,  "hi": 9999,"label": ">=340",    "price": 0.001},
         ],
     },
     {
@@ -93,13 +101,23 @@ MARKETS = [
         # May 2026 forecast buckets (velocity-based projection)
         # Based on ~30 tweets/day rate: May should reach ~930 tweets
         "outcome_buckets": [
-            {"lo": 0,    "hi": 799, "label": "<800",     "price": 0.15},
-            {"lo": 800,  "hi": 899, "label": "800-899",  "price": 0.13},
-            {"lo": 900,  "hi": 999, "label": "900-999",  "price": 0.16},
-            {"lo": 1000, "hi": 1099,"label": "1000-1099","price": 0.13},
-            {"lo": 1100, "hi": 1199,"label": "1100-1199","price": 0.10},
-            {"lo": 1200, "hi": 1299,"label": "1200-1299","price": 0.09},
-            {"lo": 1300, "hi": 9999,"label": ">=1300",  "price": 0.07},
+            {"lo": 0,     "hi": 799,  "label": "<800",      "price": 0.15},
+            {"lo": 800,   "hi": 879,  "label": "800-879",   "price": 0.005},
+            {"lo": 880,   "hi": 919,  "label": "880-919",   "price": 0.01},
+            {"lo": 920,   "hi": 959,  "label": "920-959",   "price": 0.005},
+            {"lo": 960,   "hi": 999,  "label": "960-999",   "price": 0.023},
+            {"lo": 1000,  "hi": 1039, "label": "1000-1039", "price": 0.026},
+            {"lo": 1040,  "hi": 1079, "label": "1040-1079", "price": 0.036},
+            {"lo": 1080,  "hi": 1119, "label": "1080-1119", "price": 0.048},
+            {"lo": 1120,  "hi": 1159, "label": "1120-1159", "price": 0.056},
+            {"lo": 1160,  "hi": 1199, "label": "1160-1199", "price": 0.156},
+            {"lo": 1200,  "hi": 1239, "label": "1200-1239", "price": 0.107},
+            {"lo": 1240,  "hi": 1279, "label": "1240-1279", "price": 0.149},
+            {"lo": 1280,  "hi": 1319, "label": "1280-1319", "price": 0.102},
+            {"lo": 1320,  "hi": 1359, "label": "1320-1359", "price": 0.084},
+            {"lo": 1360,  "hi": 1399, "label": "1360-1399", "price": 0.084},
+            {"lo": 1400,  "hi": 1999, "label": "1400-1999", "price": 0.05},
+            {"lo": 2000,  "hi": 9999, "label": ">=2000",   "price": 0.01},
         ],
         # For May: this is a FORECAST market (hasn't started yet)
         "is_forecast": True,
@@ -271,9 +289,22 @@ def bucket_probability(bucket_lo: int, bucket_hi: int, confirmed: int, days: flo
     Final = confirmed + remaining tweets.
     Remaining tweets ~ Normal(mu=DAILY_RATE*days, sigma=sqrt(mu)).
     bucket_lo/hi are the absolute final count bounds for this bucket.
+
+    Key rule: if confirmed EXCEEDS bucket_hi (confirmed > bucket_hi),
+    this bucket is already impossible → P = 0.
+    If confirmed is IN the bucket range and days ≈ 0, P = 1.0 (discrete resolved).
     """
-    if days <= 0:
-        return 1.0 if bucket_lo <= confirmed <= bucket_hi else 0.0
+    # Discrete case: no time left — final count = confirmed
+    # If confirmed EXCEEDS bucket_hi → bucket already impossible → P = 0
+    # If confirmed < bucket_lo → bucket not yet reachable → use normal approx
+    # If bucket_lo <= confirmed <= bucket_hi → already in bucket → P = 1.0
+    if days <= 0.01:  # essentially no time remaining
+        if confirmed > bucket_hi:
+            return 0.0  # count EXCEEDS bucket upper bound → this bucket is dead
+        elif confirmed >= bucket_lo:
+            return 1.0  # confirmed already in this bucket → resolved
+        else:
+            return 0.0  # confirmed hasn't reached this bucket yet (impossible with 0 days)
 
     expected_rem = DAILY_RATE * days
     std_rem = max(math.sqrt(expected_rem), 1.0)
@@ -288,27 +319,19 @@ def bucket_probability(bucket_lo: int, bucket_hi: int, confirmed: int, days: flo
     rem_lo = bucket_lo - confirmed
     rem_hi = bucket_hi - confirmed
 
-    # Remaining tweets can't be negative
-    # If rem_hi < 0: bucket is entirely below confirmed → already passed this bucket → 0
-    if rem_hi < 0:
+    # If confirmed ALREADY EXCEEDS bucket_hi → bucket impossible → 0
+    if confirmed > bucket_hi:
         return 0.0
-    # If rem_lo <= 0: confirmed is already at or above bucket_lo
-    # Remaining >= 0 means some probability of staying in this bucket
-    # The bucket captures: remaining tweets between rem_lo (could be negative/0) and rem_hi
-
-    # For buckets entirely above confirmed (rem_lo > 0):
-    # P(rem_lo <= R <= rem_hi)
-    if rem_lo > 0:
+    # If bucket_lo <= confirmed <= bucket_hi → already inside this bucket
+    elif bucket_lo <= confirmed <= bucket_hi:
+        # "In bucket" means remaining tweets don't push count above bucket_hi
+        # P(R <= rem_hi) where R >= 0 and R ~ Normal(expected_rem, std_rem)
+        p = norm_cdf(rem_hi + 0.5, expected_rem, std_rem) - norm_cdf(0, expected_rem, std_rem)
+        return max(0.0, min(1.0, p))
+    # bucket_lo > confirmed: bucket entirely above confirmed → use normal tail
+    else:
         p = norm_cdf(rem_hi + 0.5, expected_rem, std_rem) - norm_cdf(max(0, rem_lo - 0.5), expected_rem, std_rem)
         return max(0.0, min(1.0, p))
-
-    # For bucket that contains confirmed (rem_lo <= 0 <= rem_hi):
-    # confirmed is between bucket_lo and bucket_hi.
-    # "In bucket" means remaining tweets DON'T push final count above bucket_hi.
-    # P(R <= rem_hi) where R >= 0
-    # = P(0 <= R <= rem_hi) = norm_cdf(rem_hi) - norm_cdf(0)
-    p_above_bucket_lo = norm_cdf(rem_hi + 0.5, expected_rem, std_rem) - norm_cdf(0, expected_rem, std_rem)
-    return max(0.0, min(1.0, p_above_bucket_lo))
 
 
 def analyze_market(mkt: dict, now_utc: datetime) -> dict:
@@ -334,6 +357,11 @@ def analyze_market(mkt: dict, now_utc: datetime) -> dict:
     remaining = max(target - confirmed, 0)
     req_rate = round(remaining / days_rem, 1) if days_rem > 0 else 999
     vel_ratio = round(DAILY_RATE / req_rate, 2) if req_rate > 0 and req_rate < 999 else 99.0
+
+    # Market resolved flags — use across all sections
+    window_closed = days_rem < 0.1
+    target_exceeded = confirmed > target  # strict: strictly greater
+    already_resolved = target_exceeded and window_closed and (not is_forecast)
 
     # ── Multi-outcome MC probability ─────────────────────────────────
     mc = mc_final_count(confirmed, days_rem)
@@ -381,6 +409,9 @@ def analyze_market(mkt: dict, now_utc: datetime) -> dict:
     combos = []
     n = len(bucket_probs)
 
+    # Skip combo analysis for already-resolved markets
+    # Note: target_exceeded, window_closed, already_resolved are defined earlier in function
+
     # Generate all contiguous range combinations (1 bucket, 2 adjacent, ..., all)
     for combo_size in range(1, n + 1):
         for start in range(n):
@@ -396,7 +427,8 @@ def analyze_market(mkt: dict, now_utc: datetime) -> dict:
                 continue
 
             # Skip combos where any bucket has prob ≈ 1 (already resolved)
-            if any(abs(b["prob"] - 1.0) < 0.001 for b in combo):
+            # Also skip ALL combos for resolved markets (no point trading settled markets)
+            if any(abs(b["prob"] - 1.0) < 0.001 for b in combo) or already_resolved:
                 continue
 
             combo_prob = sum(b["prob"] for b in combo)
@@ -456,10 +488,9 @@ def analyze_market(mkt: dict, now_utc: datetime) -> dict:
     combos.sort(key=lambda x: x["combo_edge"], reverse=True)
 
     # ── YES/NO binary probability ─────────────────────────────────────
-    # P(YES) = P(final count >= target) = P(remaining >= target - confirmed)
-    # This is a simple tail probability of the remaining tweets distribution.
-    # Buckets where lo >= target: P(YES) = P(stay in bucket) [already computed]
-    # Buckets where hi < target: P(YES) = P(reach lower bound of this bucket) = P(R >= lo - confirmed)
+    # P(YES) = P(final count > target) = P(remaining > target - confirmed)
+    # Strict interpretation: confirmed must STRICTLY EXCEED target for YES to win.
+    # confirmed == target → P(YES) < 1.0 (still uncertain).
     remaining_to_target = target - confirmed
     if remaining_to_target <= 0:
         p_yes = 1.0  # already at or above target
@@ -484,7 +515,11 @@ def analyze_market(mkt: dict, now_utc: datetime) -> dict:
     no_kelly_full = kelly(no_price, p_no)
 
     # ── Best bet ─────────────────────────────────────────────────────
-    if yes_edge_raw > 0.05 and yes_kelly_full > 0:
+    if already_resolved:
+        best_bet = "RESOLVED"
+        best_side = "YES"
+        best_kelly = 0.0
+    elif yes_edge_raw > 0.05 and yes_kelly_full > 0:
         best_bet = "BUY_YES"
         best_side = "YES"
         best_kelly = yes_kelly_full
@@ -593,16 +628,23 @@ def print_report(results: list):
         print(f"  Window: {r['window']} | Days left: {r['days_remaining']:.1f}")
         print(f"{'='*72}")
 
-        # Status
-        status = "ALREADY RESOLVED" if r['confirmed'] >= r['target'] else "IN PROGRESS"
-        print(f"\n  STATUS: {status}")
-        print(f"  xtrack confirmed: {r['confirmed']} / target: {r['target']}")
-        if r['remaining_to_target'] > 0:
-            print(f"  Remaining: {r['remaining_to_target']} tweets needed in {r['days_remaining']:.1f}d")
-            print(f"  Required rate: {r['required_rate']}/day | Real rate: ~{r['real_rate']}/day")
-            print(f"  Velocity ratio: {r['velocity_ratio']}x")
+        # Status — use best_bet verdict if available
+        verdict = r.get('best_bet', 'UNKNOWN')
+        if verdict == "RESOLVED":
+            status = "✅ RESOLVED (window closed, target exceeded)"
+            print(f"\n  STATUS: {status}")
+            print(f"  xtrack confirmed: {r['confirmed']} / target: {r['target']}")
+            print(f"  NOTE: confirmed {r['confirmed']} EXCEEDS target {r['target']} — binary YES already settled")
         else:
-            print(f"  TARGET REACHED: {r['confirmed']} >= {r['target']}")
+            status = "IN PROGRESS" if r['remaining_to_target'] > 0 else "ENDING SOON"
+            print(f"\n  STATUS: {status}")
+            print(f"  xtrack confirmed: {r['confirmed']} / target: {r['target']}")
+            if r['remaining_to_target'] > 0:
+                print(f"  Remaining: {r['remaining_to_target']} tweets needed in {r['days_remaining']:.1f}d")
+                print(f"  Required rate: {r['required_rate']}/day | Real rate: ~{r['real_rate']}/day")
+                print(f"  Velocity ratio: {r['velocity_ratio']}x")
+            else:
+                print(f"  Remaining: ~0 tweets needed — market settling")
 
         # YES/NO binary
         print(f"\n  BINARY: YES vs NO")
