@@ -1,92 +1,110 @@
-import React, { useState, useEffect } from 'react';
-import { Clock, AlertTriangle, Zap } from 'lucide-react';
-import { getTimeParts } from '../../lib/utils';
+﻿import React, { useState, useEffect } from 'react';
+import { Clock } from 'lucide-react';
 
-export type CountdownUrgency = 'normal' | 'warning' | 'urgent' | 'expired';
-
-function getUrgency(expired: boolean, days: number, hours: number): CountdownUrgency {
-  if (expired) return 'expired';
-  if (days === 0 && hours < 1) return 'urgent';
-  if (days === 0) return 'warning';
-  return 'normal';
-}
-
-const urgencyStyles: Record<CountdownUrgency, { text: string; bg: string; border: string; icon: React.ReactNode }> = {
-  normal: {
-    text: 'text-text-muted',
-    bg: 'bg-forge-800',
-    border: 'border-border',
-    icon: <Clock className="w-3.5 h-3.5" />,
-  },
-  warning: {
-    text: 'text-status-warning',
-    bg: 'bg-status-warning/10',
-    border: 'border-status-warning/30',
-    icon: <AlertTriangle className="w-3.5 h-3.5" />,
-  },
-  urgent: {
-    text: 'text-status-error',
-    bg: 'bg-status-error/10',
-    border: 'border-status-error/30',
-    icon: <Zap className="w-3.5 h-3.5" />,
-  },
-  expired: {
-    text: 'text-text-muted',
-    bg: 'bg-forge-800',
-    border: 'border-border',
-    icon: <Clock className="w-3.5 h-3.5" />,
-  },
-};
-
-interface BountyCountdownProps {
+/**
+ * Props for the BountyCountdown component.
+ */
+export interface BountyCountdownProps {
+  /** ISO date string for the bounty deadline. */
   deadline: string;
-  /** Compact: single-line layout for cards. Default: false (detailed). */
-  compact?: boolean;
-  /** Show seconds tick. Default: false. */
-  showSeconds?: boolean;
-  /** Additional CSS classes. */
+  /** Display variant: 'inline' for sidebar/text, 'badge' for card labels. Defaults to 'inline'. */
+  variant?: 'inline' | 'badge';
+  /** Additional CSS class names to apply to the root element. */
   className?: string;
 }
 
-export function BountyCountdown({ deadline, compact = false, showSeconds = false, className = '' }: BountyCountdownProps) {
-  const [parts, setParts] = useState(() => getTimeParts(deadline));
+/**
+ * Real-time countdown timer that shows days, hours, minutes until bounty deadline.
+ * Color changes: normal 鈫?warning (<24h) 鈫?urgent (<1h)
+ * Shows "Expired" when deadline passes.
+ */
+export function BountyCountdown({ deadline, variant = 'inline', className = '' }: BountyCountdownProps) {
+  const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number; expired: boolean; urgent: boolean; warning: boolean }>(() => computeTimeLeft(deadline));
 
   useEffect(() => {
-    // Update every second for real-time countdown
+    // Recompute immediately when deadline prop changes
+    setTimeLeft(computeTimeLeft(deadline));
+
     const interval = setInterval(() => {
-      setParts(getTimeParts(deadline));
+      setTimeLeft(computeTimeLeft(deadline));
     }, 1000);
+
     return () => clearInterval(interval);
   }, [deadline]);
 
-  const urgency = getUrgency(parts.expired, parts.days, parts.hours);
-  const style = urgencyStyles[urgency];
+  const { days, hours, minutes, seconds, expired, urgent, warning } = timeLeft;
 
-  if (compact) {
+  const colorClass = urgent
+    ? 'text-status-error'
+    : warning
+    ? 'text-status-warning'
+    : 'text-text-secondary';
+
+  if (variant === 'badge') {
+    if (expired) {
+      return (
+        <span className={`inline-flex items-center gap-1 font-mono text-xs font-medium px-2 py-0.5 rounded-full border text-status-error ${className}`}
+          style={{ borderColor: 'currentColor', backgroundColor: 'rgba(239,68,68,0.1)' }}>
+          <Clock className="w-3 h-3" />
+          Expired
+        </span>
+      );
+    }
     return (
-      <span className={`inline-flex items-center gap-1 font-mono text-xs ${style.text}`}>
-        {style.icon}
-        {parts.expired ? 'Expired' : `${parts.days}d ${parts.hours}h ${parts.minutes}m`}
+      <span className={`inline-flex items-center gap-1 font-mono text-xs font-medium px-2 py-0.5 rounded-full border ${colorClass} ${className}`}
+        style={urgent ? { borderColor: 'currentColor', backgroundColor: 'rgba(239,68,68,0.1)' } : warning ? { borderColor: 'currentColor', backgroundColor: 'rgba(234,179,8,0.1)' } : {}}>
+        <Clock className="w-3 h-3" />
+        {days > 0 ? `${days}d ${hours}h` : hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m ${seconds}s`}
+      </span>
+    );
+  }
+
+  if (expired) {
+    return (
+      <span className={`inline-flex items-center gap-1 text-status-error font-medium ${className}`}>
+        <Clock className="w-3.5 h-3.5" />
+        Expired
       </span>
     );
   }
 
   return (
-    <div
-      className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg border ${style.bg} ${style.border} ${className}`}
-    >
-      <span className={style.text}>{style.icon}</span>
-      {parts.expired ? (
-        <span className={`font-mono text-sm font-medium ${style.text}`}>Expired</span>
-      ) : (
-        <span className={`font-mono text-sm font-medium ${style.text}`}>
-          {parts.days > 0 && <span>{parts.days}<span className="text-xs ml-0.5 mr-1">d</span></span>}
-          {parts.days > 0 && parts.hours > 0 && <span>{parts.hours}<span className="text-xs ml-0.5 mr-1">h</span></span>}
-          {parts.days === 0 && <span>{parts.hours}<span className="text-xs ml-0.5 mr-1">h</span></span>}
-          <span>{parts.minutes}<span className="text-xs ml-0.5 mr-1">m</span></span>
-          {showSeconds && <span>{parts.seconds}<span className="text-xs ml-0.5">s</span></span>}
-        </span>
-      )}
-    </div>
+    <span className={`inline-flex items-center gap-1 font-mono text-xs ${colorClass} ${className}`}>
+      <Clock className="w-3.5 h-3.5" />
+      {days > 0 ? `${days}d ${hours}h` : hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m ${seconds}s`}
+    </span>
   );
+}
+
+/**
+ * Computes the remaining time components and urgency flags for a given deadline.
+ *
+ * @param deadline - ISO date string for the bounty deadline
+ * @returns Object containing days/hours/minutes/seconds remaining, plus expired/urgent/warning booleans
+ */
+function computeTimeLeft(deadline: string) {
+  const now = Date.now();
+  const deadlineMs = new Date(deadline).getTime();
+  const diff = deadlineMs - now;
+
+  if (diff <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true, urgent: false, warning: false };
+  }
+
+  const totalSeconds = Math.floor(diff / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  const totalHours = diff / (1000 * 60 * 60);
+  return {
+    days,
+    hours,
+    minutes,
+    seconds,
+    expired: false,
+    urgent: totalHours < 1,
+    warning: totalHours < 24,
+  };
 }
