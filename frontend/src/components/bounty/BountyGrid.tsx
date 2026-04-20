@@ -56,11 +56,15 @@ export function BountyGrid() {
           {/* Search bar */}
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
+            {/* TODO: client-side search only covers already-fetched pages (pagination batch of ~12).
+                Results on later pages are invisible; count reflects only the loaded subset.
+                A server-side refactor would be needed to search across all pages. */}
             <input
               type="text"
               placeholder="Search bounties..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              aria-label="Search bounties by title, description, or skill"
               className="w-full sm:w-64 appearance-none bg-forge-800 border border-border rounded-lg pl-9 pr-8 py-2 text-sm text-text-secondary placeholder-text-muted focus:border-emerald outline-none transition-colors duration-150"
             />
             {searchQuery && (
