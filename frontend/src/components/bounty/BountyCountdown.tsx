@@ -4,6 +4,13 @@ import { getTimeParts } from '../../lib/utils';
 
 export type CountdownUrgency = 'normal' | 'warning' | 'urgent' | 'expired';
 
+/**
+ * Determines urgency level based on time remaining.
+ * @param expired - Whether the deadline has passed.
+ * @param days - Full days remaining.
+ * @param hours - Hours remaining within the current day.
+ * @returns Urgency level: expired > urgent > warning > normal.
+ */
 function getUrgency(expired: boolean, days: number, hours: number): CountdownUrgency {
   if (expired) return 'expired';
   if (days === 0 && hours < 1) return 'urgent';
@@ -48,6 +55,16 @@ interface BountyCountdownProps {
   className?: string;
 }
 
+/**
+ * Live countdown timer for a bounty deadline.
+ * Updates every second; adapts styling to urgency level (normal → warning → urgent → expired).
+ * Renders a compact inline span (compact=true) or a full badge block.
+ *
+ * @param deadline - ISO-8601 deadline string.
+ * @param compact  - Single-line layout for cards vs. full badge layout. Default: false.
+ * @param showSeconds - Render seconds alongside minutes. Default: false.
+ * @param className - Additional CSS classes to apply to the container.
+ */
 export function BountyCountdown({ deadline, compact = false, showSeconds = false, className = '' }: BountyCountdownProps) {
   const [parts, setParts] = useState(() => getTimeParts(deadline));
 
@@ -76,17 +93,19 @@ export function BountyCountdown({ deadline, compact = false, showSeconds = false
       className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg border ${style.bg} ${style.border} ${className}`}
     >
       <span className={style.text}>{style.icon}</span>
-      {parts.expired ? (
-        <span className={`font-mono text-sm font-medium ${style.text}`}>Expired</span>
-      ) : (
-        <span className={`font-mono text-sm font-medium ${style.text}`}>
-          {parts.days > 0 && <span>{parts.days}<span className="text-xs ml-0.5 mr-1">d</span></span>}
-          {parts.days > 0 && parts.hours > 0 && <span>{parts.hours}<span className="text-xs ml-0.5 mr-1">h</span></span>}
-          {parts.days === 0 && <span>{parts.hours}<span className="text-xs ml-0.5 mr-1">h</span></span>}
-          <span>{parts.minutes}<span className="text-xs ml-0.5 mr-1">m</span></span>
-          {showSeconds && <span>{parts.seconds}<span className="text-xs ml-0.5">s</span></span>}
-        </span>
-      )}
+      <span className={`font-mono text-sm font-medium ${style.text}`}>
+        {parts.expired ? (
+          'Expired'
+        ) : (
+          <>
+            {parts.days > 0 && <span>{parts.days}<span className="text-xs ml-0.5 mr-1">d</span></span>}
+            {parts.days > 0 && parts.hours > 0 && <span>{parts.hours}<span className="text-xs ml-0.5 mr-1">h</span></span>}
+            {parts.days === 0 && <span>{parts.hours}<span className="text-xs ml-0.5 mr-1">h</span></span>}
+            <span>{parts.minutes}<span className="text-xs ml-0.5 mr-1">m</span></span>
+            {showSeconds && <span>{parts.seconds}<span className="text-xs ml-0.5">s</span></span>}
+          </>
+        )}
+      </span>
     </div>
   );
 }
