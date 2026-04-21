@@ -1,7 +1,7 @@
 # HEARTBEAT.md - Active Tasks Monitor
-Updated: 2026-04-20 22:58 HKT
+Updated: 2026-04-21 23:58 HKT
 
-## Polymarket Elon Tracker (v3 — 2026-04-20)
+## Polymarket Elon Tracker (v3 — 2026-04-21)
 - **Repo**: `polymarket-elon-tracker/`
 - **入口**: `run_hourly.py` (cron `f5c6ff90`)
 - **核心**: `src/full_analyzer.py` — multi-outcome bucket analysis + bidirectional edge
@@ -25,7 +25,12 @@ Updated: 2026-04-20 22:58 HKT
 - ✅ `get_market_confirmed` bug 已修复（改用 `globals()`）
 - ✅ live bucket prices 已启用（从 Polymarket HTML 实时读取，不再 hardcoded）
 - Browser relay 断 → xtrack 从 Polymarket HTML 提取（`fetch_live_counts.py`），价格也用HTML fallback（`fetch_live_prices.py`）
+- ⚠️ 飞书通知超时：`openclaw msg send` 在 polymarket cron 中频繁超时，Gateway RPC 正常，问题在飞书消息路由
 - subagent (browser relay) 是最可靠数据源，Python fallback 只能应急
+
+### 今日大事记 (2026-04-21)
+- Gateway 中断 2次：05:02 和 14:44，均自动恢复
+- crypto-daily-check 09:00 已运行
 
 ### 关键文件
 ```bash
@@ -60,6 +65,7 @@ bounty-hub-hunter 需要 relay attach 到 **bountyhub.dev**：
 | gateway-keepalive | every 10m | running |
 | polymarket-elon-monitor | every 1h | running（数据从HTML fallback）|
 | bounty-hub-hunter | every 2h | error（需 relay）|
+| crypto-daily-check | daily 09:00 | running |
 | ai-money-hunter-hourly | every 1h | error |
 | ainews-wp-daily-report | every 1d | ok |
 | Daily PR Review | every 1d | error |
@@ -91,7 +97,15 @@ bounty-hub-hunter 需要 relay attach 到 **bountyhub.dev**：
 - [ ] 回顾昨天关键事件
 - [ ] 清理过时的HEARTBEAT项目
 
-## BountyHub Skill (Added 2026-04-19)
+## Crypto Daily Monitor (Added 2026-04-21)
+- **目录**: `crypto-daily-monitor/` | Cron: `crypto-daily-check` daily
+- **币种**: DOGE, XRP, SHIB, BNB, CFX
+- **数据源**: Binance 页面抓取 (browser relay) + CoinGecko (CFX fallback)
+- **信号规则**: 距年低≤10% → 买入信号 | 距史低≤15% → 强买入信号 | 成交量激增+价格跌 → 大额买入信号
+- **脚本**: `crypto_browser_scraper.py` (browser relay 版本)
+- **上次快照**: `last_snapshot.json`
+- **数据不稳定**: Binance API/CoinGecko API 均被墙，需 browser relay 抓取
+- **注意**: BNB ATH $1370, DOGE ATH $0.73, SHIB ATH $0.0000885, XRP ATH $3.84, CFX ATH $1.70
 - Skill: bounty-hunt/ at ~/.openclaw/skills/bounty-hunt/
 - Cron: bounty-hub-hunter every 2h
 - Script: scripts/bounty_hunter.py
