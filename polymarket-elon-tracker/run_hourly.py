@@ -24,6 +24,37 @@ from full_analyzer import (
     mc_final_count, DAILY_RATE, PEAK_HOURS, save_xtrack_snapshot
 )
 
+# ── xtrack Time-Series Logger ─────────────────────────────────────────────────
+def record_xtrack_series(live_counts: dict, live_prices: dict, now_utc: datetime):
+    """
+    Append xtrack readings to a persistent JSONL log for historical analysis.
+    File: data/xtrack_series.jsonl
+    Each line: {"ts": "...", "market_id": "...", "xtrack": N, "source": "...", "price_yes": N}
+    """
+    series_path = TRACKER_DIR / "data" / "xtrack_series.jsonl"
+    rows = []
+    for mid, count_data in live_counts.items():
+        tc = count_data.get("xtrack_confirmed")
+        # Skip null readings (market ended or relay unavailable)
+        if tc is None:
+            continue
+        live_p = live_prices.get(mid, {})
+        rows.append({
+            "ts": now_utc.isoformat(),
+            "market_id": mid,
+            "xtrack": tc,
+            "source": count_data.get("source", "unknown"),
+            "price_yes": live_p.get("yes"),
+            "price_no": live_p.get("no"),
+        })
+    if not rows:
+        return
+    with open(series_path, "a", encoding="utf-8") as f:
+        for r in rows:
+            f.write(json.dumps(r, ensure_ascii=False) + "\n")
+    print(f"  → xtrack series logged: {len(rows)} rows to {series_path.name}")
+
+
 # ── xtrack change detection ──────────────────────────────────────────────────
 def check_xtrack_changes(now_utc: datetime) -> list:
     """
@@ -273,8 +304,12 @@ def main():
     else:
         print("  No live prices fetched (browser relay may be unavailable)")
 
+    # 2b. Record xtrack to time-series log for historical analysis
+    print("\n[2b/5] Recording xtrack time-series...")
+    record_xtrack_series(live_counts, live_prices, now_utc)
+
     # 3. Save current xtrack snapshot AFTER analysis (for next-run comparison)
-    print("\n[3/5] Running analysis...")
+    print("\n[4/6] Running analysis...")
     tweets_path = TRACKER_DIR / "data" / "tweets_latest.json"
     tweets = []
     if tweets_path.exists():
@@ -323,7 +358,7 @@ def main():
         results.append(r)
 
     # 4. Save snapshot AFTER analysis (for next-run change detection)
-    print("\n[4/5] Saving xtrack snapshot...")
+    print("\n[4/6] Saving xtrack snapshot...")
     save_xtrack_snapshot(now_utc)
 
     # Save output files
@@ -362,7 +397,7 @@ def main():
     # Save Feishu message
     msg_file = out_dir / "latest_feishu_msg.txt"
     msg_file.write_text(msg, encoding="utf-8")
-    print(f"\n[5/5] Saved: {fp.name}")
+    print(f"\n[6/6] Saved: {fp.name}")
     print(f"Feishu msg: {msg_file}")
 
     try:
