@@ -46,9 +46,11 @@ interface BountyCountdownProps {
   showSeconds?: boolean;
   /** Additional CSS classes. */
   className?: string;
+  /** Render as a compact badge (e.g. for card display). Default: false (full countdown box). */
+  variant?: 'default' | 'badge';
 }
 
-export function BountyCountdown({ deadline, compact = false, showSeconds = false, className = '' }: BountyCountdownProps) {
+export function BountyCountdown({ deadline, compact = false, showSeconds = false, variant = 'default', className = '' }: BountyCountdownProps) {
   const [parts, setParts] = useState(() => getTimeParts(deadline));
 
   useEffect(() => {
@@ -62,7 +64,7 @@ export function BountyCountdown({ deadline, compact = false, showSeconds = false
   const urgency = getUrgency(parts.expired, parts.days, parts.hours);
   const style = urgencyStyles[urgency];
 
-  if (compact) {
+  if (compact || variant === 'badge') {
     return (
       <span className={`inline-flex items-center gap-1 font-mono text-xs ${style.text}`}>
         {style.icon}
