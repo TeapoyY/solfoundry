@@ -2,8 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Clock, AlertTriangle, Zap } from 'lucide-react';
 import { getTimeParts } from '../../lib/utils';
 
+/**
+ * Urgency level for bounty deadline countdown.
+ * Determines visual styling: normal → warning → urgent → expired.
+ */
 export type CountdownUrgency = 'normal' | 'warning' | 'urgent' | 'expired';
 
+/**
+ * Determine urgency level based on expiration and time remaining.
+ * Used to apply visual styling (normal/warning/urgent/expired).
+ *
+ * @param expired   - Whether the deadline has passed.
+ * @param days      - Full days remaining.
+ * @param hours     - Hours remaining in the current day.
+ * @returns The appropriate urgency level.
+ */
 function getUrgency(expired: boolean, days: number, hours: number): CountdownUrgency {
   if (expired) return 'expired';
   if (days === 0 && hours < 1) return 'urgent';
@@ -11,6 +24,7 @@ function getUrgency(expired: boolean, days: number, hours: number): CountdownUrg
   return 'normal';
 }
 
+/** Styles for each urgency level: icon, text color, background, and border. */
 const urgencyStyles: Record<CountdownUrgency, { text: string; bg: string; border: string; icon: React.ReactNode }> = {
   normal: {
     text: 'text-text-muted',
@@ -38,18 +52,18 @@ const urgencyStyles: Record<CountdownUrgency, { text: string; bg: string; border
   },
 };
 
-interface BountyCountdownProps {
-  deadline: string;
-  /** Compact: single-line layout for cards. Default: false (detailed). */
-  compact?: boolean;
-  /** Show seconds tick. Default: false. */
-  showSeconds?: boolean;
-  /** Additional CSS classes. */
-  className?: string;
-  /** Render as a compact badge (e.g. for card display). Default: false (full countdown box). */
-  variant?: 'default' | 'badge';
-}
-
+/**
+ * Live countdown timer for bounty deadlines.
+ *
+ * Renders a real-time countdown (days/hours/minutes) that updates every second.
+ * Visual urgency escalates as the deadline approaches: normal → warning → urgent → expired.
+ *
+ * @param deadline    - ISO date string for the bounty deadline.
+ * @param compact     - Compact single-line layout for cards. Default: false.
+ * @param showSeconds - Show seconds tick. Default: false.
+ * @param variant     - 'default' renders a full countdown box; 'badge' renders a compact inline badge.
+ * @param className   - Additional CSS class names.
+ */
 export function BountyCountdown({ deadline, compact = false, showSeconds = false, variant = 'default', className = '' }: BountyCountdownProps) {
   const [parts, setParts] = useState(() => getTimeParts(deadline));
 
@@ -65,9 +79,10 @@ export function BountyCountdown({ deadline, compact = false, showSeconds = false
   const style = urgencyStyles[urgency];
 
   if (compact || variant === 'badge') {
+    const displayStyle = parts.expired ? urgencyStyles['expired'] : style;
     return (
-      <span className={`inline-flex items-center gap-1 font-mono text-xs ${style.text}${className ? ` ${className}` : ''}`}>
-        {style.icon}
+      <span className={`inline-flex items-center gap-1 font-mono text-xs ${displayStyle.text}${className ? ` ${className}` : ''}`}>
+        {displayStyle.icon}
         {parts.expired ? 'Expired' : `${parts.days}d ${parts.hours}h ${parts.minutes}m`}
       </span>
     );

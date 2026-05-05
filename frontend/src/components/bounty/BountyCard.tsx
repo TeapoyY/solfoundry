@@ -7,6 +7,11 @@ import { cardHover } from '../../lib/animations';
 import { formatCurrency, LANG_COLORS } from '../../lib/utils';
 import { BountyCountdown } from './BountyCountdown';
 
+/**
+ * Compact tier badge showing T1/T2/T3 classification.
+ *
+ * @param tier - The tier string (T1, T2, or T3).
+ */
 function TierBadge({ tier }: { tier: string }) {
   const styles: Record<string, string> = {
     T1: 'bg-tier-t1/10 text-tier-t1 border border-tier-t1/20',
@@ -20,6 +25,10 @@ function TierBadge({ tier }: { tier: string }) {
   );
 }
 
+/**
+ * BountyCard displays a single bounty summary in the grid.
+ * Shows repo, tier, title, skills, reward, deadline countdown, and status.
+ */
 interface BountyCardProps {
   bounty: Bounty;
 }
