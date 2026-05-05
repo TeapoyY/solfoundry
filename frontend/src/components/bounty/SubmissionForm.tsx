@@ -3,6 +3,14 @@ import { Loader2, Check, Copy } from 'lucide-react';
 import type { Bounty } from '../../types/bounty';
 import { createSubmission, getReviewFee, verifyReviewFee } from '../../api/bounties';
 
+/**
+ * SubmissionForm allows authenticated users to submit a solution to a bounty.
+ * Handles FNDRY review fee verification, repository/PR URL input, and on-chain
+ * transaction signature verification before enabling submission.
+ *
+ * @param bounty     - The bounty to submit against.
+ * @param onSuccess  - Optional callback invoked after successful submission.
+ */
 interface SubmissionFormProps {
   bounty: Bounty;
   onSuccess?: () => void;

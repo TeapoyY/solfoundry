@@ -378,6 +378,14 @@ function Step3({
   );
 }
 
+/**
+ * BountyCreateWizard guides the bounty creator through 3 steps:
+ * 1. Title, description, and GitHub links
+ * 2. Reward amount, deadline, and tier selection
+ * 3. Escrow funding via on-chain USDC transfer and verification
+ *
+ * After escrow is verified on-chain, the bounty is published and becomes visible to contributors.
+ */
 export function BountyCreateWizard() {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
