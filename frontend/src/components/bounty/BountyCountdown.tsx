@@ -92,12 +92,6 @@ export function BountyCountdown({ deadline, compact = false, variant, showSecond
         </span>
       );
     }
-    return (
-      <span className={`inline-flex items-center gap-1 font-mono text-xs ${urgencyStyles[urgency].text}`}>
-        {icon}
-        {parts.expired ? 'Expired' : `${parts.days}d ${parts.hours}h ${parts.minutes}m`}
-      </span>
-    );
   }
 
   const icon = urgencyStyles[urgency].icon;

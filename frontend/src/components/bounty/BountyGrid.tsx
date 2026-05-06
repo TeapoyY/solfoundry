@@ -51,7 +51,7 @@ export function BountyGrid() {
             <input
               id="bounty-search"
               type="text"
-              aria-label="Search bounties"
+              aria-label="Search bounties by title, description, or skill"
               placeholder="Search bounties..."
               value={debouncedSearch}
               onChange={(e) => setSearchQuery(e.target.value)}
