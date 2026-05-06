@@ -80,7 +80,7 @@ export function BountyCountdown({ deadline, compact = false, variant, showSecond
     if (parts.expired) {
       if (variant === 'badge') {
         return (
-          <span className={`inline-flex items-center gap-1 font-mono text-xs ${urgencyStyles[urgency].text}`}>
+          <span className={`inline-flex items-center gap-1 font-mono text-xs ${urgencyStyles[urgency].text} ${className}`}>
             <Clock className="w-3.5 h-3.5" />
           </span>
         );
