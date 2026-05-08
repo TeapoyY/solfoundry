@@ -16,6 +16,9 @@ const GitHubIcon = () => (
   </svg>
 );
 
+/**
+ * Site-wide footer with platform links, social links, and $FNDRY token info.
+ */
 export function Footer() {
   const [copied, setCopied] = useState(false);
 
