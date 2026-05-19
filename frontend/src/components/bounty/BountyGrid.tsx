@@ -200,8 +200,8 @@ export function BountyGrid() {
           </>
         )}
 
-        {/* Load more */}
-        {hasNextPage && (
+        {/* Load more — hidden during server-side search since results are filtered server-side */}
+        {hasNextPage && !effectiveSearch && (
           <div className="mt-10 text-center">
             <button
               onClick={() => fetchNextPage()}

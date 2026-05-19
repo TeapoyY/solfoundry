@@ -1,6 +1,9 @@
 /**
  * Returns a human-readable string for how much time is left until a deadline.
  * e.g. "5d 3h", "23h 59m", "59m", "Expired"
+ *
+ * @param deadline - ISO date string for the deadline
+ * @returns Human-readable time remaining string
  */
 export function timeLeft(deadline: string): string {
   if (!deadline) return 'Expired';
@@ -29,6 +32,9 @@ export function timeLeft(deadline: string): string {
 
 /**
  * Returns a CSS color for a given programming language.
+ *
+ * @param lang - Programming language name (e.g. 'TypeScript', 'Rust')
+ * @returns CSS color string (hex code) for the language
  */
 export const LANG_COLORS: Record<string, string> = {
   TypeScript: '#3178c6',
@@ -47,6 +53,10 @@ export const LANG_COLORS: Record<string, string> = {
 
 /**
  * Formats a reward amount with token symbol.
+ *
+ * @param amount - Numeric reward amount
+ * @param token - Token symbol (e.g. 'USDC', 'FNDRY')
+ * @returns Formatted currency string with token symbol
  */
 export function formatCurrency(amount: number, token: string): string {
   const symbol = token === 'USDC' ? '$' : '';
@@ -59,6 +69,9 @@ export function formatCurrency(amount: number, token: string): string {
 /**
  * Returns a human-readable string for how long ago something happened.
  * e.g. "2 hours ago", "3 days ago"
+ *
+ * @param dateStr - ISO date string for the timestamp
+ * @returns Human-readable relative time string
  */
 export function timeAgo(dateStr: string): string {
   if (!dateStr) return 'invalid date';
