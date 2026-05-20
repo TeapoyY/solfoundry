@@ -77,14 +77,14 @@ export function BountyCountdown({ deadline, compact = false, variant, showSecond
 
   if (compact) {
     const icon = <Clock className="w-3.5 h-3.5" />;
+    if (variant === 'badge') {
+      return (
+        <span className={`inline-flex items-center gap-1 font-mono text-xs ${urgencyStyles[urgency].text}`}>
+          <Clock className="w-3.5 h-3.5" />
+        </span>
+      );
+    }
     if (parts.expired) {
-      if (variant === 'badge') {
-        return (
-          <span className={`inline-flex items-center gap-1 font-mono text-xs ${urgencyStyles[urgency].text}`}>
-            <Clock className="w-3.5 h-3.5" />
-          </span>
-        );
-      }
       return (
         <span className={`inline-flex items-center gap-1 font-mono text-xs ${urgencyStyles[urgency].text}`}>
           {icon}

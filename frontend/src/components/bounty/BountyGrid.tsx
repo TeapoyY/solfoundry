@@ -51,7 +51,7 @@ export function BountyGrid() {
             <input
               id="bounty-search"
               type="text"
-              aria-label="Search bounties"
+              aria-label="Search bounties by title, description, or skill"
               placeholder="Search bounties..."
               value={debouncedSearch}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -177,13 +177,18 @@ export function BountyGrid() {
         {/* Load more */}
         {hasNextPage && (
           <div className="mt-10 text-center">
+            {isSearching && (
+              <p className="text-xs text-text-muted mb-3">
+                Search is limited to already-loaded pages — results may be incomplete
+              </p>
+            )}
             <button
               onClick={() => fetchNextPage()}
-              disabled={isFetchingNextPage}
+              disabled={isFetchingNextPage || isSearching}
               className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-border text-text-secondary text-sm font-medium hover:border-border-hover hover:text-text-primary transition-all duration-200 disabled:opacity-50"
             >
               {isFetchingNextPage && <Loader2 className="w-4 h-4 animate-spin" />}
-              Load More
+              {isSearching ? 'Load More (search active)' : 'Load More'}
             </button>
           </div>
         )}
