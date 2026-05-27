@@ -43,8 +43,10 @@ export function BountyGrid() {
           <h2 className="font-sans text-2xl font-semibold text-text-primary">Open Bounties</h2>
           {/* Search bar */}
           <div className="relative">
+            <label htmlFor="bounty-search" className="sr-only">Search bounties by title, description, or skill</label>
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
             <input
+              id="bounty-search"
               type="text"
               aria-label="Search bounties by title, description, or skill"
               placeholder="Search bounties..."
@@ -148,14 +150,14 @@ export function BountyGrid() {
         {/* Partial search warning: search only covers loaded bounties */}
         {isSearching && !isLoading && hasNextPage && allBounties.length > 0 && (
           <p className="text-xs text-text-muted mb-4">
-            Showing {allBounties.length} results from {totalCount} total for &quot;{debouncedSearch}&quot; — load more to search deeper
+            Showing {allBounties.length} results from {totalCount} total for &quot;{effectiveSearch}&quot; — load more to search deeper
           </p>
         )}
 
         {/* Result count when searching */}
         {isSearching && !isLoading && !hasNextPage && allBounties.length > 0 && (
           <p className="text-sm text-text-muted mb-6">
-            {totalCount} result{totalCount !== 1 ? 's' : ''} for &quot;{debouncedSearch}&quot;
+            {totalCount} result{totalCount !== 1 ? 's' : ''} for &quot;{effectiveSearch}&quot;
           </p>
         )}
 

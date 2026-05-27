@@ -4,6 +4,13 @@ import { getTimeParts } from '../../lib/utils';
 
 export type CountdownUrgency = 'normal' | 'warning' | 'urgent' | 'expired';
 
+/**
+ * Determines the urgency level of a bounty countdown.
+ * @param expired - Whether the deadline has passed.
+ * @param days - Full days remaining.
+ * @param hours - Hours remaining within the current day.
+ * @returns The urgency level: 'expired', 'urgent', 'warning', or 'normal'.
+ */
 function getUrgency(expired: boolean, days: number, hours: number): CountdownUrgency {
   if (expired) return 'expired';
   if (days === 0 && hours < 1) return 'urgent';
@@ -11,6 +18,7 @@ function getUrgency(expired: boolean, days: number, hours: number): CountdownUrg
   return 'normal';
 }
 
+/** Maps urgency levels to their corresponding UI styles (text color, background, border, icon). */
 const urgencyStyles: Record<CountdownUrgency, { text: string; bg: string; border: string; icon: React.ReactNode }> = {
   normal: {
     text: 'text-text-muted',

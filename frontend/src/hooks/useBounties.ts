@@ -10,6 +10,11 @@ export function useBounties(params?: BountiesListParams) {
   });
 }
 
+/**
+ * Infinite-query hook for paginated bounty lists with optional server-side search.
+ * @param params - Filter params (status, skill, tier, etc.); optionally includes query for server-side text search.
+ * @returns Infinite query result yielding pages of bounty items with total count.
+ */
 export function useInfiniteBounties(params?: Omit<BountiesListParams, 'offset'> & { query?: string }) {
   return useInfiniteQuery({
     queryKey: ['bounties-infinite', params],
