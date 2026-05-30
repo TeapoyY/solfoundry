@@ -8,6 +8,12 @@ import { staggerContainer, staggerItem } from '../../lib/animations';
 
 const FILTER_SKILLS = ['All', 'TypeScript', 'Rust', 'Solidity', 'Python', 'Go', 'JavaScript'];
 
+/**
+ * Infinite-query grid of bounty cards with client-side search debouncing,
+ * skill/status filtering, and staggered entrance animations.
+ * Search is applied client-side to currently loaded bounties; a warning is shown
+ * when the active search query may not cover all matching bounties across pages.
+ */
 export function BountyGrid() {
   const [activeSkill, setActiveSkill] = useState<string>('All');
   const [statusFilter, setStatusFilter] = useState<string>('open');

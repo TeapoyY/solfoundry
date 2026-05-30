@@ -2,6 +2,11 @@ import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import { listBounties, getBounty } from '../api/bounties';
 import type { BountiesListParams } from '../api/bounties';
 
+/**
+ * Single-page query hook for fetching bounties with the given filter params.
+ * Caches results for 30 seconds.
+ * @param params - Filter params such as status, skill, tier, etc.
+ */
 export function useBounties(params?: BountiesListParams) {
   return useQuery({
     queryKey: ['bounties', params],
@@ -30,6 +35,10 @@ export function useInfiniteBounties(params?: Omit<BountiesListParams, 'offset'> 
   });
 }
 
+/**
+ * Single-page query hook for fetching a single bounty by ID.
+ * @param id - The bounty ID; query is disabled when id is undefined.
+ */
 export function useBounty(id: string | undefined) {
   return useQuery({
     queryKey: ['bounty', id],

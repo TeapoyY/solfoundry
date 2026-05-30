@@ -58,6 +58,11 @@ interface BountyCountdownProps {
   className?: string;
 }
 
+/**
+ * The main BountyCountdown component. Renders a real-time countdown to a deadline
+ * with urgency-based styling (normal/warning/urgent/expired). Accepts optional
+ * compact/badge layout and seconds display.
+ */
 export function BountyCountdown({ deadline, compact = false, variant, showSeconds = false, className = '' }: BountyCountdownProps) {
   const [parts, setParts] = useState(() => getTimeParts(deadline));
 
