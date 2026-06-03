@@ -2,6 +2,10 @@ import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import { listBounties, getBounty } from '../api/bounties';
 import type { BountiesListParams } from '../api/bounties';
 
+/**
+ * Single-page bounty listing via the standard listBounties API.
+ * @param params - Filter/status/skill/tier constraints plus optional search query.
+ */
 export function useBounties(params?: BountiesListParams) {
   return useQuery({
     queryKey: ['bounties', params],
