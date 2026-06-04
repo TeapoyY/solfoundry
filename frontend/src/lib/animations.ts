@@ -47,7 +47,8 @@ export const pageTransition: Variants = {
 };
 
 /**
- * Stagger container for list items.
+ * Stagger container: applies staggered delay to each child item.
+ * @see staggerItem
  */
 export const staggerContainer: Variants = {
   animate: {
@@ -58,7 +59,8 @@ export const staggerContainer: Variants = {
 };
 
 /**
- * Stagger item animation.
+ * Stagger item: fade-in with upward slide for a single list child.
+ * @see staggerContainer
  */
 export const staggerItem: Variants = {
   initial: { opacity: 0, y: 16 },

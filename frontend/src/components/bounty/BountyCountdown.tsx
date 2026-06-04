@@ -18,7 +18,7 @@ function getUrgency(expired: boolean, days: number, hours: number): CountdownUrg
   return 'normal';
 }
 
-/** Maps urgency levels to their corresponding UI styles (text color, background, border, icon). */
+/** Urgency level → UI style mapping (text color, background, border, icon). */
 const urgencyStyles: Record<CountdownUrgency, { text: string; bg: string; border: string; icon: React.ReactNode }> = {
   normal: {
     text: 'text-text-muted',
